@@ -20,3 +20,5 @@ To get started developing right away:
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
+http://objectshowfanonpedia.wikia.com/wiki/File:Taco_(II)_Pose_(TBOTM).png

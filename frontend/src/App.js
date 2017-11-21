@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import taco from './Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
 import { Button } from 'reactstrap';
@@ -31,21 +32,24 @@ class App extends Component {
       className={ "my-menu" }
       isOpen={this.state.open}
       >
-        <ul>
-          <li><a id="home" className="menu-item" href="/">Home</a></li>
-          <li><a id="about" className="menu-item" href="/about">About</a></li>
-          <li><a id="contact" className="menu-item" href="/contact">Contact</a></li>
-          <li><a onClick={ this.showSettings } className="menu-item" href="">Settings</a></li>
+        <ul className="menu-list">
+          <li className="menu-segment">Sort by</li>
+          <li><a id="hot" className="menu-item" href="/">HOT</a></li>
+          <li><a id="fresh" className="menu-item" href="/about">FRESH</a></li>
+          <li className="menu-segment">Categories</li>
+          <li><a id="awesome" className="menu-item" href="/awesome">AWESOME</a></li>
+          <li><a id="funny" className="menu-item" href="/funny">FUNNY</a></li>
+          <li><a id="food" className="menu-item" href="/food">FOOD</a></li>
+          <li><a id="sports" className="menu-item" href="/sports">SCIENCE</a></li>
+          <li><a onClick={ this.showSettings } className="menu-item" href="">SPORTS</a></li>
         </ul>
       </Menu>
 
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <img src={taco} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to LordTaco</h1>
         </header>
         <p className="App-intro">
-
-          To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
     );

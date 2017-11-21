@@ -8,15 +8,26 @@ a {
  text-decoration:none;
 }
 
-ul {
+.menu-list {
   list-style-type: none;
+
+  text-align: left;
 }
 
+.menu-segment {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 .menu-item {
       font-weight: 700;
       size: 20px;
       color: #b8b7ad;
       cursor: auto;
+      margin: 10%;
+}
+
+a:focus {
+    background-color: yellow;
 }
 /* Position and sizing of burger button */
 .bm-burger-button {
