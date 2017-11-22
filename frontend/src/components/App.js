@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import taco from './Taco.png';
+import taco from '../Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
 import { Button } from 'reactstrap';
-import './App.css';
+import '../App.css';
 
 class App extends Component {
-
   constructor (props) {
     super(props);
     this.state = {
@@ -22,6 +20,9 @@ class App extends Component {
   }
   showSettings (event) {
     event.preventDefault();
+  }
+
+  componentDidMount() {
   }
 
   render() {
