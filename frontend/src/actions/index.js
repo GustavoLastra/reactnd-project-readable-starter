@@ -1,37 +1,28 @@
-export const ADD_POST = 'ADD_POST'
-export const REMOVE_POST = 'REMOVE_POST'
-export const ADD_COMMENT = 'ADD_COMMENT'
-export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+import api from '../utils/api'
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_POSTS = 'GET_POSTS';
 
-
-export function addPost ({x , y }) {
+export function getCategories ({categories}) {
   return {
-    type: ADD_POST,
-    x,
-    y,
+    type: GET_CATEGORIES,
+    categories
   }
 }
 
-export function removePost ({x , y }) {
-  return {
-    type: REMOVE_POST,
-    x,
-    y,
-  }
-}
+export const asyncGetCategories = (dispatch) => () => {
+  api
+    .fetchCategories()
+    .then(categories => dispatch(getCategories(categories)))
+};
 
-export function addComment ({x , y }) {
-  return {
-    type: ADD_COMMENT,
-    x,
-    y,
-  }
-}
 
-export function removeComment ({x , y }) {
-  return {
-    type: REMOVE_COMMENT,
-    x,
-    y,
-  }
-}
+export const getPosts = (posts) => ({
+  type: GET_POSTS,
+  posts
+})
+
+export const asyncGetPosts = (dispatch) => () => {
+  api
+    .fetchPosts()
+    .then(posts => dispatch(getPosts(posts)))
+};

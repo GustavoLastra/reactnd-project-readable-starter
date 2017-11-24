@@ -1,56 +1,29 @@
 import { combineReducers } from 'redux'
+//import posts from './posts'
+//import categories from './categories'
 import {
-  ADD_POST,
-  REMOVE_POST,
-  ADD_COMMENT,
-  REMOVE_COMMENT
-} from '../actions'
+  GET_CATEGORIES,
+  GET_POSTS
+}from '../actions'
 
-function post (state = {}, action) {
-  switch (action.type) {
-    case ADD_POST :
-      const { recipe } = action
-
-      return {
-        ...state,
-        [recipe.label]: recipe,
-      }
-    case REMOVE_POST:
-      return {
-        ...state,
-        [day]: {
-          ...state[day],
-          [meal]: null,
-        }
-      }
-    default :
-      return state
+function posts (state = [], action) {
+  if (action.type === GET_POSTS) {
+    console.log("On post reducer action "+ action.posts );
+    return action.posts
   }
+  return state
 }
-function comment (state = {}, action) {
-  switch (action.type) {
-    case ADD_COMMENT :
-      const { recipe } = action
 
-      return {
-        ...state,
-        [recipe.label]: recipe,
-      }
-    case REMOVE_COMMENT:
-      return {
-        ...state,
-        [day]: {
-          ...state[day],
-          [meal]: null,
-        }
-      }
-    default :
-      return state
+function categories (state = [], action) {
+  if (action.type === GET_CATEGORIES) {
+    console.log("On post reducer categories "+ action.categories );
+    return action.categories
   }
+  return state
 }
 
 
 export default combineReducers({
-  post,
-  comment,
+  categories,
+  posts,
 })
