@@ -9,7 +9,29 @@ const defaultData = {
     title: 'Udacity is the best place to learn React',
     body: 'Everyone says so after all.',
     author: 'thingtwo',
-    category: 'react',
+    category: 'awesome',
+    voteScore: 6,
+    deleted: false,
+    commentCount: 2
+  },
+  "8xf0y6ziyjabvozdd253nc": {
+    id: '8xf0y6ziyjabvozdd253nc',
+    timestamp: 1467166872634,
+    title: 'Brinca la tablita',
+    body: 'Everyone says so after all.',
+    author: 'thingtwo',
+    category: 'funny',
+    voteScore: 6,
+    deleted: false,
+    commentCount: 2
+  },
+  "8xf0y6ziyjabvozdd253ne": {
+    id: '8xf0y6ziyjabvozdd253ne',
+    timestamp: 1467166872634,
+    title: 'AI vs Androids',
+    body: 'Everyone says so after all.',
+    author: 'thingtwo',
+    category: 'technology',
     voteScore: 6,
     deleted: false,
     commentCount: 2
@@ -17,10 +39,10 @@ const defaultData = {
   "6ni6ok3ym7mf1p33lnez": {
     id: '6ni6ok3ym7mf1p33lnez',
     timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    title: 'Tacos in 10 minutes!',
+    body: 'Just kidding. It takes more than 10 minutes to learn tacos.',
     author: 'thingone',
-    category: 'redux',
+    category: 'food',
     voteScore: -5,
     deleted: false,
     commentCount: 0

@@ -4,15 +4,23 @@ import {asyncGetCategories,asyncGetPosts} from '../actions'
 import taco from '../Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
-import { Button } from 'reactstrap';
+import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import '../App.css';
 
 class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      modal: false
     };
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
   }
 
   handleClick() {
@@ -33,7 +41,7 @@ class App extends Component {
   }
 
   render() {
-    const {categories} =  this.props;
+    const {categories, posts} =  this.props;
     return (
       <div className="App">
       <Menu
@@ -54,20 +62,49 @@ class App extends Component {
 
         <header className="App-header">
           <img src={taco} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to LordTaco</h1>
+          <h1 className="App-title">LordTaco</h1>
         </header>
+
+        <main className="container">
+        <ul className="menu-list">
+            {posts.map(post =>
+              <li key={post.title}>
+                <Jumbotron >
+                  <Container fluid>
+                    <h1 className="display-3">{post.title}</h1>
+                    <p className="lead">
+                      {post.body}
+                    </p>
+                    <hr className="my-2" />
+                    <p>Author: {post.author}</p>
+                    <p className="lead">
+                      <Button onClick={this.toggle} color="primary">Deteils</Button>
+                      <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                        <ModalBody>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                          <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                      </Modal>
+                    </p>
+                  </Container>
+
+                </Jumbotron>
+
+              </li>
+            )}
+        </ul>
+        </main>
+
         <p className="App-intro">
         </p>
       </div>
     );
   }
 }
-
-
-/*<li><a id="funny" className="menu-item" href="/funny">FUNNY</a></li>
-<li><a id="food" className="menu-item" href="/food">FOOD</a></li>
-<li><a id="sports" className="menu-item" href="/sports">SCIENCE</a></li>
-<li><a onClick={ this.showSettings } className="menu-item" href="">SPORTS</a></li>*/
 
 function mapStateToProps(state){
   return{
