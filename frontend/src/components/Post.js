@@ -3,7 +3,6 @@ import {asyncGetCategories,asyncGetPosts} from '../actions'
 import ConnectedListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
-import { Badge } from 'reactstrap';
 import '../App.css';
 import { Link } from 'react-router-dom'
 
@@ -40,15 +39,17 @@ class Post extends Component {
           <p className="lead">
             {post.body}
           </p>
-          <hr className="my-2" />
-          <p>Author: {post.author}</p>
           <p className="lead">
-            <Button color="success" onClick={this.toggleModal}>Give a Taco <Badge color="success">{post.voteScore}</Badge></Button>
+            <Button color="success" onClick={this.toggleModal}>Give a Taco <span className="votes">{post.voteScore}</span></Button>
             <Button color="primary" onClick={this.toggleModal}>Comment</Button>
             <Button id="PopoverDetails" color="info" onClick={this.togglePopup}>Details</Button>
-            <Popover placement="bottom" isOpen={this.state.popover} target="PopoverDetails" toggle={this.togglePopup}>
-              <PopoverHeader>Popover Title</PopoverHeader>
-              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+            <Popover placement="top" isOpen={this.state.popover} target="PopoverDetails" toggle={this.togglePopup}>
+              <PopoverHeader>Details</PopoverHeader>
+              <PopoverBody>
+                <p>Author: {post.author}</p>
+                <p>Timestamp: {post.timestamp}</p>
+                <p>Category: {post.category}</p>
+              </PopoverBody>
             </Popover>
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
               <ModalHeader toggle={this.toggle}>{post.title}</ModalHeader>
