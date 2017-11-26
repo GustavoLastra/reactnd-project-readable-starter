@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {asyncGetCategories,asyncGetPosts} from '../actions'
 import ConnectedListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { Badge } from 'reactstrap';
 import '../App.css';
 import { Link } from 'react-router-dom'
 
@@ -10,14 +12,22 @@ class Post extends Component {
     super(props);
     this.state = {
       open: false,
-      modal: false
+      modal: false,
+      popover: false
     };
-    this.toggle = this.toggle.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
   }
 
-  toggle() {
+  toggleModal() {
     this.setState({
       modal: !this.state.modal
+    });
+  }
+
+  togglePopup() {
+    this.setState({
+      popover: !this.state.popover
     });
   }
 
@@ -33,7 +43,13 @@ class Post extends Component {
           <hr className="my-2" />
           <p>Author: {post.author}</p>
           <p className="lead">
-            <Button onClick={this.toggle} color="primary">Details</Button>
+            <Button color="success" onClick={this.toggleModal}>Give a Taco <Badge color="success">{post.voteScore}</Badge></Button>
+            <Button color="primary" onClick={this.toggleModal}>Comment</Button>
+            <Button id="PopoverDetails" color="info" onClick={this.togglePopup}>Details</Button>
+            <Popover placement="bottom" isOpen={this.state.popover} target="PopoverDetails" toggle={this.togglePopup}>
+              <PopoverHeader>Popover Title</PopoverHeader>
+              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+            </Popover>
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
               <ModalHeader toggle={this.toggle}>{post.title}</ModalHeader>
               <ModalBody>
@@ -44,8 +60,8 @@ class Post extends Component {
                 />
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                <Button color="primary" onClick={this.toggleModal}>Do Something</Button>
+                <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
               </ModalFooter>
             </Modal>
           </p>
