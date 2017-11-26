@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {asyncGetCategories,asyncGetPosts} from '../actions'
-import classNames from 'classnames';
+import ConnectedListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import '../App.css';
 import { Link } from 'react-router-dom'
@@ -37,7 +37,11 @@ class Post extends Component {
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
               <ModalHeader toggle={this.toggle}>{post.title}</ModalHeader>
               <ModalBody>
-              {post.body}
+                {"<Posts body>: " + post.body}
+                <hr className="my-2" />
+                <ConnectedListComments
+                postId={post.id}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}

@@ -3,7 +3,8 @@ import { combineReducers } from 'redux'
 //import categories from './categories'
 import {
   GET_CATEGORIES,
-  GET_POSTS
+  GET_POSTS,
+  GET_COMMENTS
 }from '../actions'
 
 function posts (state = [], action) {
@@ -22,8 +23,17 @@ function categories (state = [], action) {
   return state
 }
 
+function comments (state = [], action) {
+  if (action.type === GET_COMMENTS) {
+    console.log("On post reducer comments "+ action.comments );
+    return action.comments
+  }
+  return state
+}
+
 
 export default combineReducers({
   categories,
   posts,
+  comments
 })

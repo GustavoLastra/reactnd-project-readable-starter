@@ -14,11 +14,8 @@ class ListCategories extends Component {
   }
 
   componentDidMount() {
-    const { categories } =  this.props;
-    if ( Object.keys(categories).length === 0 ) {
-      this.props.getCategories();
-      //this.props.getPosts();
-    }
+    const { getCategories } =  this.props;
+      getCategories();
   }
 
   render() {

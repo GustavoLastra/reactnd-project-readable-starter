@@ -26,6 +26,20 @@ a {
       margin: 10%;
 }
 
+.comment-list {
+  list-style-type: none;
+  text-align: left;
+}
+.comment-item {
+      font-weight: 700;
+      size: 20px;
+      color: #b8b7ad;
+      cursor: auto;
+      margin: 10%;
+}
+
+
+
 a:focus {
     background-color: yellow;
 }
