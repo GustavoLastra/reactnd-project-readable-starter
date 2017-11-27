@@ -10,7 +10,7 @@ const defaultData = {
     body: 'Everyone says so after all.',
     author: 'thingtwo',
     category: 'awesome',
-    voteScore: 6,
+    voteScore: 1,
     deleted: false,
     commentCount: 2
   },
@@ -21,7 +21,7 @@ const defaultData = {
     body: 'Everyone says so after all.',
     author: 'thingtwo',
     category: 'funny',
-    voteScore: 6,
+    voteScore: 1,
     deleted: false,
     commentCount: 2
   },
@@ -32,7 +32,7 @@ const defaultData = {
     body: 'Everyone says so after all.',
     author: 'thingtwo',
     category: 'technology',
-    voteScore: 6,
+    voteScore: 1,
     deleted: false,
     commentCount: 2
   },
@@ -43,7 +43,7 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn tacos.',
     author: 'thingone',
     category: 'food',
-    voteScore: -5,
+    voteScore: 1,
     deleted: false,
     commentCount: 0
   }

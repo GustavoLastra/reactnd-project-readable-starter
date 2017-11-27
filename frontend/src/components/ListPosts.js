@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {asyncGetCategories,asyncGetPosts} from '../actions'
 import classNames from 'classnames';
-import Post from './Post';
+import ConnectedPost from './Post';
 import '../App.css';
 import { Link } from 'react-router-dom'
 
@@ -14,11 +14,10 @@ class ListPosts extends Component {
   }
 
   componentDidMount() {
-    const { categories, posts } =  this.props;
-    if ( Object.keys(categories).length === 0 ) {
+    const { posts } =  this.props;
       //this.props.getCategories();
       this.props.getPosts();
-    }
+
   }
 
   render() {
@@ -32,7 +31,7 @@ class ListPosts extends Component {
         <ul className="menu-list">
             {posts.map(post =>
               <li key={post.title}>
-                <Post
+                <ConnectedPost
                 post={ post}
                 />
               </li>

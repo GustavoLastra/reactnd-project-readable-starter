@@ -2,6 +2,7 @@ import api from '../utils/api'
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS = 'GET_POSTS';
 export const GET_COMMENTS = 'GET_COMMENTS';
+export const POST_VOTE = 'POST_VOTE';
 
 export function getCategories ({categories}) {
   return {
@@ -38,4 +39,16 @@ export const asyncGetComments = (dispatch) => (postId) => {
   api
     .fetchCommentsForAPost(postId)
     .then(comments => dispatch(getComments(postId,comments)))
+};
+
+export const postVote = (post) => ({
+  type: POST_VOTE,
+  post
+});
+
+export const asyncPostVote = (dispatch) => (postId, option)=> () => {
+  console.log("thorough asyncPostVote action (postId, option): " + postId + " " + option );
+  api
+    .voteForAPost(postId, option)
+    .then(post => dispatch(postVote(post)))
 };

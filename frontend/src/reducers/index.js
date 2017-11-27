@@ -4,7 +4,8 @@ import { combineReducers } from 'redux'
 import {
   GET_CATEGORIES,
   GET_POSTS,
-  GET_COMMENTS
+  GET_COMMENTS,
+  POST_VOTE
 }from '../actions'
 
 function posts (state = [], action) {
@@ -31,9 +32,18 @@ function comments (state = [], action) {
   return state
 }
 
+function votes (state = [], action) {
+  if (action.type === POST_VOTE) {
+      console.log("On post reducer votes "+ action.post );
+    return action.post
+  }
+  return state
+}
+
 
 export default combineReducers({
   categories,
   posts,
-  comments
+  comments,
+  votes
 })

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {asyncGetCategories,asyncGetPosts} from '../actions'
+import {asyncGetCategories, asyncGetPosts, asyncPostVote} from '../actions'
+import {connect} from 'react-redux';
 import ConnectedListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
@@ -30,17 +31,22 @@ class Post extends Component {
     });
   }
 
+  /*postVote(postId) {
+    this.props.postVote(postId,'upVote' )
+  }*/
+
   render() {
-    const {post} =  this.props;
+    const {post, postVote} =  this.props;
     return (
       <Jumbotron >
         <Container fluid>
-          <h1 className="display-3">{post.title}</h1>
+          <h1 className="display-5">"{post.title}"</h1>
           <p className="lead">
             {post.body}
           </p>
-          <p className="lead">
-            <Button color="success" onClick={this.toggleModal}>Give a Taco <span className="votes">{post.voteScore}</span></Button>
+          -{post.author}
+          <p className="buttonlist">
+            <Button color="success" onClick={postVote}>Tacos<span className="votes">{post.voteScore}</span></Button>
             <Button color="primary" onClick={this.toggleModal}>Comment</Button>
             <Button id="PopoverDetails" color="info" onClick={this.togglePopup}>Details</Button>
             <Popover placement="top" isOpen={this.state.popover} target="PopoverDetails" toggle={this.togglePopup}>
@@ -72,5 +78,29 @@ class Post extends Component {
   }
 }
 
+function mapStateToProps(state){
+  return {
+    categories: state.categories,
+    posts: state.posts,
+    //categoriesIds: state.categoriesIds
+  }
+}
 
-export default Post
+function mapDispatchToProps(dispatch, OwnProps){
+  const {post} =  OwnProps;
+  console.log("mapDispatchToProps post:" + post);
+  return{
+    getCategories: asyncGetCategories(dispatch),
+    getPosts: asyncGetPosts(dispatch),
+    //postVote: asyncPostVote(dispatch)(post.id, "upVote")
+    postVote:asyncPostVote(dispatch)(post.id, 'upVote'),
+    //postVote: (postId) => dispatch(asyncPostVote(postId, "upVote")),
+  }
+}
+
+const ConnectedPost =  connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Post);
+
+export default ConnectedPost

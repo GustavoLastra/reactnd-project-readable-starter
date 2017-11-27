@@ -8,9 +8,7 @@ a {
  text-decoration:none;
 }
 
-/*button{
-  background:green;
-}*/
+
 
 .menu-list {
   list-style-type: none;
@@ -54,6 +52,10 @@ a {
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
+}
+
+.buttonlist {
+  float: right;
 }
 
 a:focus {
