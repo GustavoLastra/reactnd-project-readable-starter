@@ -9,11 +9,41 @@ import {
 }from '../actions'
 
 function posts (state = [], action) {
-  if (action.type === GET_POSTS) {
-    console.log("On post reducer action "+ action.posts );
-    return action.posts
+  switch (action.type) {
+      case GET_POSTS :
+        //console.log("On post reducer action "+ action.posts );
+        console.log("On post reducer votes post: " + JSON.stringify(action.posts, null, 4));
+        return action.posts
+      case POST_VOTE :
+
+        state.map(element => console.log(element));
+        const { post } = action;
+        const { voteScore} =  post;
+        console.log("On post reducer votes post: " + JSON.stringify(post, null, 4));
+        console.log("On post reducer votes state: " + JSON.stringify(state, null, 4));
+        console.log("On post reducer votes voteScore: "+ voteScore );
+        console.log("On post reducer votes postid: "+ post.id );
+        /*let newState= state.map(element => {
+            if(element.id===post.id){
+              element.voteScore=voteScore
+            } else {
+              element = "hola";
+            }
+          }
+        )*/
+        return {
+          ...state,
+          post:  state.map(element => {
+              element.id===post.id
+               ? element.voteScore=voteScore
+               : element = "hola";
+              return element
+            })
+        }
+
+      default :
+        return state
   }
-  return state
 }
 
 function categories (state = [], action) {
@@ -32,18 +62,14 @@ function comments (state = [], action) {
   return state
 }
 
-function votes (state = [], action) {
-  if (action.type === POST_VOTE) {
-      console.log("On post reducer votes "+ action.post );
-    return action.post
-  }
+/*function votes (state = [], action) {
+
   return state
-}
+}*/
 
 
 export default combineReducers({
   categories,
   posts,
-  comments,
-  votes
+  comments
 })

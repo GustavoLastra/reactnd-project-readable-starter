@@ -13,7 +13,7 @@ class Post extends Component {
     this.state = {
       open: false,
       modal: false,
-      popover: false
+      popover: false,
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.togglePopup = this.togglePopup.bind(this);

@@ -43,6 +43,7 @@ export const asyncGetComments = (dispatch) => (postId) => {
 
 export const postVote = (post) => ({
   type: POST_VOTE,
+  //posts,
   post
 });
 
