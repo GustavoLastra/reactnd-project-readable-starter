@@ -13,10 +13,10 @@ class Post extends Component {
     this.state = {
       open: false,
       modal: false,
-      popover: false,
+      modalDetails: false,
     };
     this.toggleModal = this.toggleModal.bind(this);
-    this.togglePopup = this.togglePopup.bind(this);
+    this.toggleModalDetails = this.toggleModalDetails.bind(this);
   }
 
   toggleModal() {
@@ -25,9 +25,9 @@ class Post extends Component {
     });
   }
 
-  togglePopup() {
+  toggleModalDetails() {
     this.setState({
-      popover: !this.state.popover
+      modalDetails: !this.state.modalDetails
     });
   }
 
@@ -37,7 +37,9 @@ class Post extends Component {
 
   render() {
     const {post, postVote} =  this.props;
+    let target  = post.author + "hola";
     return (
+
       <Jumbotron >
         <Container fluid>
           <h1 className="display-5">"{post.title}"</h1>
@@ -48,15 +50,8 @@ class Post extends Component {
           <p className="buttonlist">
             <Button color="success" onClick={postVote}>Tacos<span className="votes">{post.voteScore}</span></Button>
             <Button color="primary" onClick={this.toggleModal}>Comments</Button>
-            <Button id="PopoverDetails" color="info" onClick={this.togglePopup}>Details</Button>
-            <Popover placement="top" isOpen={this.state.popover} target="PopoverDetails" toggle={this.togglePopup}>
-              <PopoverHeader>Details</PopoverHeader>
-              <PopoverBody>
-                <p>Author: {post.author}</p>
-                <p>Timestamp: {post.timestamp}</p>
-                <p>Category: {post.category}</p>
-              </PopoverBody>
-            </Popover>
+            <Button id={target} color="info" onClick={this.toggleModalDetails}>Details</Button>
+
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
               <ModalHeader toggle={this.toggle}>{post.title}</ModalHeader>
               <ModalBody>
@@ -69,6 +64,17 @@ class Post extends Component {
               <ModalFooter>
                 <Button color="primary" onClick={this.toggleModal}>Comment</Button>
                 <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={this.state.modalDetails} toggle={this.toggleModalDetails} className={this.props.className}>
+              <ModalHeader toggle={this.toggleModalDetails}>Details</ModalHeader>
+              <ModalBody>
+                <p>Author: {post.author}</p>
+                <p>Timestamp: {post.timestamp}</p>
+                <p>Category: {post.category}</p>
+              </ModalBody>
+              <ModalFooter>
               </ModalFooter>
             </Modal>
           </p>
