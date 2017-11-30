@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {asyncGetCategories,asyncGetPosts} from '../actions'
+import {asyncGetCategories,asyncGetPosts, asyncGetCategoryPosts} from '../actions'
 import taco from '../Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
@@ -18,6 +18,13 @@ class App extends Component {
       open: false,
       modal: false
     };
+    this.showPostsByCategory = this.showPostsByCategory.bind(this);
+  }
+
+  showPostsByCategory(categoryName) {
+    const {getCategoryPosts} = this.props
+      console.log("on App's showPostsByCategory function: " + categoryName);
+    getCategoryPosts(categoryName);
   }
 
 
@@ -33,10 +40,14 @@ class App extends Component {
         >
           <ul className="menu-list">
             <li key="sortBy" className="menu-segment">Sort by</li>
-            <li key="hot"><a id="hot" className="menu-item" href="/">HOT</a></li>
-            <li key="fresh"><a id="fresh" className="menu-item" href="/about">FRESH</a></li>
+            <li key="hot"><a id="hot" className="menu-item" href="">HOT</a></li>
+            <li key="fresh"><a id="fresh" className="menu-item" href="">FRESH</a></li>
             <li key="categories" className="menu-segment">Categories</li>
-              <ListCategories/>
+
+              <ListCategories
+                onCategorySelect= {this.showPostsByCategory}
+
+              />
           </ul>
         </Menu>
         <header className="App-header">
@@ -64,6 +75,7 @@ function mapDispatchToProps(dispatch){
   return{
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
+    getCategoryPosts: (categoryName)=> asyncGetCategoryPosts(dispatch)(categoryName),
   }
 }
 

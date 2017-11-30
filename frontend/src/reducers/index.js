@@ -5,7 +5,8 @@ import {
   GET_CATEGORIES,
   GET_POSTS,
   GET_COMMENTS,
-  POST_VOTE
+  POST_VOTE,
+  CATEGORY_POSTS
 }from '../actions'
 
 function posts (state = [], action) {
@@ -14,6 +15,10 @@ function posts (state = [], action) {
         return action.posts
       case POST_VOTE :
         return action.posts
+      case CATEGORY_POSTS:
+        console.log("On post reducer posts by categories hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh " );
+        return action.posts
+
       default :
         return state
   }

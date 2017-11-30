@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {asyncGetCategories,asyncGetPosts} from '../actions'
+import {asyncGetCategories,asyncGetPosts, asyncGetCategoryPosts} from '../actions'
 import classNames from 'classnames';
 import Post from './Post';
+import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+
 import '../App.css';
 import { Link } from 'react-router-dom'
 
@@ -11,6 +13,8 @@ class ListCategories extends Component {
     super(props);
     this.state = {
     };
+    this.selectCategory = this.selectCategory.bind(this);
+
   }
 
   componentDidMount() {
@@ -18,13 +22,20 @@ class ListCategories extends Component {
       getCategories();
   }
 
+  selectCategory(categoryName) {
+    const { onCategorySelect } = this.props
+    console.log("on ListCategory's selectCategory function");
+    onCategorySelect(categoryName);
+  }
+
   render() {
     const { categories} =  this.props;
     return (
       <div>
         {categories.map(category =>
-          <li key={category.name}><a id={category.name}  className="menu-item" href="/awesome">{category.name}</a></li>
+          <li onClick= {() =>this.selectCategory(category.name)} key={category.name}><a id={category.name} className="menu-item" >{category.name}</a></li>
         )}
+        <Button color="primary" onClick={() => this.selectCategory("awesome")}>AWESOME</Button>
       </div>
     );
   }

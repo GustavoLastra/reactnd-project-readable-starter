@@ -4,6 +4,8 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS = 'GET_POSTS';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const POST_VOTE = 'POST_VOTE';
+export const CATEGORY_POSTS = 'CATEGORY_POSTS';
+
 
 export function getCategories (categories) {
   return {
@@ -54,4 +56,19 @@ export const asyncPostVote = (dispatch) => (postId)=> () => {
     .votePost(postId)
     .then(() => api.getPosts()
     .then(posts => dispatch(postVote(posts))))
+};
+
+
+
+
+export const categoryPosts = (posts) => ({
+  type: CATEGORY_POSTS,
+  posts
+});
+
+export const asyncGetCategoryPosts = (dispatch) => (category)=> {
+  console.log("thorough asyncGetCategoryPosts action (category): " + category );
+  api
+    .getCategoryPosts(category)
+    .then(posts => dispatch(categoryPosts(posts)))
 };
