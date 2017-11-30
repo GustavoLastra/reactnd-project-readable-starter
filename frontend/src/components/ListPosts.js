@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {asyncGetCategories,asyncGetPosts} from '../actions'
 import classNames from 'classnames';
-import ConnectedPost from './Post';
+import Post from './Post';
 import '../App.css';
 import { Link } from 'react-router-dom'
 
@@ -12,12 +12,10 @@ class ListPosts extends Component {
     this.state = {
     };
   }
-
   componentDidMount() {
     const { posts } =  this.props;
       //this.props.getCategories();
       this.props.getPosts();
-
   }
 
   render() {
@@ -31,7 +29,7 @@ class ListPosts extends Component {
         <ul className="menu-list">
             {posts.map(post =>
               <li key={post.title}>
-                <ConnectedPost
+                <Post
                 post={ post}
                 />
               </li>
@@ -60,9 +58,7 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-const ConnectedListPosts =  connect(
+export default  connect(
   mapStateToProps,
   mapDispatchToProps
 )(ListPosts);
-
-export default ConnectedListPosts

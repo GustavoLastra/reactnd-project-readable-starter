@@ -1,141 +1,130 @@
-import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:3001/'
-axios.defaults.headers.common['Authorization'] = 'OK'
+const url = "http://localhost:3001"
 
-const api = {
-
-  fetchCategories: () => (
-    axios.get('categories').then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  fetchPosts: () => (
-    axios.get('posts').then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  fetchPostsByCategory: (category) => (
-    axios.get(`${category}/posts`).then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  fetchCommentsForAPost: (postId) => (
-    axios.get(`posts/${postId}/comments`).then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  voteForAPost: (postId, option) => (
-    axios.post(`posts/${postId}`,
-      {
-        option
-      }
-    ).then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  fetchPostDetails: (postId) => (
-    axios.get(`posts/${postId}`).then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  updatePost: ({ postId,  title, body }) => (
-    axios.put(`posts/${postId}`, { title, body } ).then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  deletePost: ( postId ) => (
-    axios.delete(`posts/${postId}`).then(
-      // For some reason this response comes with data:'', not too useful, so we can use only the status code.
-      (response) => (response)
-    ).then(({status, statusText}) => (
-      {status, statusText, postId} )
-    )
-  ),
-
-  fetchCommentDetails: (commentId) => (
-    axios.get(`comments/${commentId}`).then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
-  updateComment: ({ commentId,  timestamp, body }) => (
-    axios.put(`comments/${commentId}`, { timestamp, body } ).then(
-      (response) => {
-        return response.data
-      }
-    ).then((data) => (data))
-  ),
-
-  deleteComment: ( commentId ) => (
-    axios.delete(`comments/${commentId}`).then(
-      (response) => (response)
-    ).then((data) => ( data ))
-  ),
-
-
-  sendPost: (
-    {
-
-      id,
-      timestamp,
-      title,
-      body,
-      author,
-      category
-
-    }) => (
-
-    axios.post('posts', {
-
-      id,
-      timestamp,
-      title,
-      body,
-      author,
-      category,
-
-    }).then( (data) => (data))
-  ),
-
-  sendComment: (
-    {
-
-      id,
-      timestamp,
-      body,
-      author,
-      parentId
-
-    }) => (
-
-    axios.post('comments', {
-
-      id,
-      timestamp,
-      body,
-      author,
-      parentId,
-
-    }).then( (data) => (data))
-  ),
-
-  voteForAComment: (commentId, option) => (
-    axios.post(`comments/${commentId}`,
-      {
-        option
-      }
-    ).then(
-      (response) => (response.data)
-    ).then((data) => (data))
-  ),
-
+const headers = {
+  'Accept': 'application/json',
+  'Authorization': 'whatever-you-want'
 }
 
-export default api
+export const getCategories = () =>
+  fetch(`${url}/categories`, {
+    headers: {
+      ...headers
+    }
+  }).then(res => res.json()).then(data => data.categories)
+
+export const getPosts = () =>
+  fetch(`${url}/posts`, {
+    headers: {
+      ...headers
+    }
+  }).then(res => res.json())
+
+export const getCategoryPosts = (category) =>
+  fetch(`${url}/${category}/posts`, {
+    headers: {
+      ...headers
+    }
+  }).then(res => res.json())
+
+export const getPost = (postId) =>
+  fetch(`${url}/posts/${postId}`, {
+    headers: {
+      ...headers
+    }
+  }).then(res => res.json())
+
+export const getPostComments = (postId) =>
+  fetch(`${url}/posts/${postId}/comments`, {
+    headers: {
+      ...headers
+    }
+  }).then(res => res.json())
+
+export const updateComment = (comment, option) =>
+  fetch(`${url}/comments/${comment.id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+     'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(option)
+  }).then(res => res.json())
+
+export const deleteComment = (commentId) =>
+  fetch(`${url}/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: { 'Authorization': 'whatever-you-want' }
+  }).then(res => res.json())
+
+export const deletePost = (postId) =>
+  fetch(`${url}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: { 'Authorization': 'whatever-you-want' }
+  }).then(res => res.json())
+
+export const createComment = (data) =>
+  fetch(`${url}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+
+export const votePost = (postId) =>
+  fetch(`${url}/posts/${postId}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ option: 'upVote'})
+  }).then(res => res.json())
+
+export const downVotePost = (postId) =>
+  fetch(`${url}/posts/${postId}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ option: 'downVote'})
+  }).then(res => res.json())
+
+export const createPost = (data) =>
+  fetch(`${url}/posts`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+
+export const updatePost = (data) =>
+  fetch(`${url}/posts/${data.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+
+export const updateCommentBody = (comment) =>
+  fetch(`${url}/comments/${comment.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comment)
+  }).then(res => res.json())
+
+export const getComment = (commentId) =>
+  fetch(`${url}/comments/${commentId}`, {
+    headers: {
+      ...headers
+    }
+  }).then(res => res.json())

@@ -1,10 +1,11 @@
-import api from '../utils/api'
+//import api from '../utils/api'
+import * as api from '../utils/api.js'
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS = 'GET_POSTS';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const POST_VOTE = 'POST_VOTE';
 
-export function getCategories ({categories}) {
+export function getCategories (categories) {
   return {
     type: GET_CATEGORIES,
     categories
@@ -13,7 +14,7 @@ export function getCategories ({categories}) {
 
 export const asyncGetCategories = (dispatch) => () => {
   api
-    .fetchCategories()
+    .getCategories()
     .then(categories => dispatch(getCategories(categories)))
 };
 
@@ -25,7 +26,7 @@ export const getPosts = (posts) => ({
 
 export const asyncGetPosts = (dispatch) => () => {
   api
-    .fetchPosts()
+    .getPosts()
     .then(posts => dispatch(getPosts(posts)))
 };
 
@@ -37,19 +38,20 @@ export const getComments = (postId,comments) => ({
 
 export const asyncGetComments = (dispatch) => (postId) => {
   api
-    .fetchCommentsForAPost(postId)
+    .getPostComments(postId)
     .then(comments => dispatch(getComments(postId,comments)))
 };
 
-export const postVote = (post) => ({
+export const postVote = (posts) => ({
   type: POST_VOTE,
   //posts,
-  post
+  posts
 });
 
-export const asyncPostVote = (dispatch) => (postId, option)=> () => {
-  console.log("thorough asyncPostVote action (postId, option): " + postId + " " + option );
+export const asyncPostVote = (dispatch) => (postId)=> () => {
+  console.log("thorough asyncPostVote action (postId, option): " + postId + " " );
   api
-    .voteForAPost(postId, option)
-    .then(post => dispatch(postVote(post)))
+    .votePost(postId)
+    .then(() => api.getPosts()
+    .then(posts => dispatch(postVote(posts))))
 };

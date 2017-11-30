@@ -93,14 +93,12 @@ function mapDispatchToProps(dispatch, OwnProps){
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
     //postVote: asyncPostVote(dispatch)(post.id, "upVote")
-    postVote:asyncPostVote(dispatch)(post.id, 'upVote'),
+    postVote:asyncPostVote(dispatch)(post.id),
     //postVote: (postId) => dispatch(asyncPostVote(postId, "upVote")),
   }
 }
 
-const ConnectedPost =  connect(
+ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Post);
-
-export default ConnectedPost

@@ -45,9 +45,7 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-const ConnectedListCategories =  connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ListCategories);
-
-export default ConnectedListCategories

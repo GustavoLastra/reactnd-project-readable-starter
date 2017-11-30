@@ -6,8 +6,8 @@ import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import '../App.css';
-import ConnectedListPosts from './ListPosts';
-import ConnectedListCategories from './ListCategories';
+import ListPosts from './ListPosts';
+import ListCategories from './ListCategories';
 
 import { Link } from 'react-router-dom'
 
@@ -36,7 +36,7 @@ class App extends Component {
             <li key="hot"><a id="hot" className="menu-item" href="/">HOT</a></li>
             <li key="fresh"><a id="fresh" className="menu-item" href="/about">FRESH</a></li>
             <li key="categories" className="menu-segment">Categories</li>
-              <ConnectedListCategories/>
+              <ListCategories/>
           </ul>
         </Menu>
         <header className="App-header">
@@ -44,7 +44,7 @@ class App extends Component {
           <h1 className="App-title">LordTaco</h1>
         </header>
 
-        <ConnectedListPosts/>
+        <ListPosts/>
 
         <p className="App-intro">
         </p>
