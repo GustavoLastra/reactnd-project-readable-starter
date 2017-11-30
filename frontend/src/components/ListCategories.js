@@ -35,7 +35,6 @@ class ListCategories extends Component {
         {categories.map(category =>
           <li onClick= {() =>this.selectCategory(category.name)} key={category.name}><a id={category.name} className="menu-item" >{category.name}</a></li>
         )}
-        <Button color="primary" onClick={() => this.selectCategory("awesome")}>AWESOME</Button>
       </div>
     );
   }

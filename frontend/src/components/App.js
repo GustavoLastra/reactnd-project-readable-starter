@@ -29,7 +29,7 @@ class App extends Component {
 
 
   render() {
-    const {categories} =  this.props;
+    const {categories, getPosts} =  this.props;
     return (
       <div className="App">
 
@@ -39,9 +39,10 @@ class App extends Component {
           isOpen={this.state.open}
         >
           <ul className="menu-list">
+            <li key="home"><a id="home" className="menu-item" onClick={getPosts}><h5>HOME</h5></a></li>
             <li key="sortBy" className="menu-segment">Sort by</li>
-            <li key="hot"><a id="hot" className="menu-item" href="">HOT</a></li>
-            <li key="fresh"><a id="fresh" className="menu-item" href="">FRESH</a></li>
+            <li key="hot"><a id="hot" className="menu-item" >HOT</a></li>
+            <li key="fresh"><a id="fresh" className="menu-item">FRESH</a></li>
             <li key="categories" className="menu-segment">Categories</li>
 
               <ListCategories

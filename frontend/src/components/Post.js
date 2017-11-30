@@ -47,7 +47,7 @@ class Post extends Component {
           -{post.author}
           <p className="buttonlist">
             <Button color="success" onClick={postVote}>Tacos<span className="votes">{post.voteScore}</span></Button>
-            <Button color="primary" onClick={this.toggleModal}>Comment</Button>
+            <Button color="primary" onClick={this.toggleModal}>Comments</Button>
             <Button id="PopoverDetails" color="info" onClick={this.togglePopup}>Details</Button>
             <Popover placement="top" isOpen={this.state.popover} target="PopoverDetails" toggle={this.togglePopup}>
               <PopoverHeader>Details</PopoverHeader>
@@ -67,7 +67,7 @@ class Post extends Component {
                 />
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={this.toggleModal}>Do Something</Button>
+                <Button color="primary" onClick={this.toggleModal}>Comment</Button>
                 <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
               </ModalFooter>
             </Modal>
