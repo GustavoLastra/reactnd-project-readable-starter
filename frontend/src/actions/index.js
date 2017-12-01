@@ -5,6 +5,7 @@ export const GET_POSTS = 'GET_POSTS';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const POST_VOTE = 'POST_VOTE';
 export const CATEGORY_POSTS = 'CATEGORY_POSTS';
+export const SORT_POSTS = 'SORT_POSTS';
 
 
 export function getCategories (categories) {
@@ -71,4 +72,17 @@ export const asyncGetCategoryPosts = (dispatch) => (category)=> {
   api
     .getCategoryPosts(category)
     .then(posts => dispatch(categoryPosts(posts)))
+};
+
+export const sortPosts = (posts,sortState) => ({
+  type: SORT_POSTS,
+  posts,
+  sortState
+});
+
+export const asyncSortPosts = (dispatch) => (sortState) => {
+  console.log("through action asyncSortPosts sortState: " +  sortState );
+    api
+    .getPosts()
+    .then(posts => dispatch(sortPosts(posts,sortState)))
 };

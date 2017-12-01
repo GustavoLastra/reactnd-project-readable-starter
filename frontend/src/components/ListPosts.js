@@ -23,9 +23,7 @@ class ListPosts extends Component {
     return (
       <div className="App">
         <main className="container">
-        <div className="open-search">
-          <Link to='/search'>Add a book</Link>
-        </div>
+
         <ul className="menu-list">
             {posts.map(post =>
               <li key={post.title}>
