@@ -4,9 +4,12 @@ import {asyncGetCategories,asyncGetPosts, asyncGetCategoryPosts, asyncSortPosts}
 import taco from '../Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
-import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import '../App.css';
 import ListPosts from './ListPosts';
+import PostForm from './PostForm';
+
 import ListCategories from './ListCategories';
 
 import { Link } from 'react-router-dom'
@@ -17,10 +20,12 @@ class App extends Component {
     this.state = {
       open: false,
       modal: false,
+      modalForm:false
     };
     this.showPostsByCategory = this.showPostsByCategory.bind(this);
     this.sortPostsHot = this.sortPostsHot.bind(this);
     this.sortPostsFresh = this.sortPostsFresh.bind(this);
+    this.toggleModalForm = this.toggleModalForm.bind(this);
   }
 
   showPostsByCategory(categoryName) {
@@ -38,6 +43,12 @@ class App extends Component {
     console.log("function sortPosts this.state.sortState:" +this.state.sortState);
     this.props.asyncSortPosts("fresh");
   }
+
+  toggleModalForm() {
+  this.setState({
+    modalForm: !this.state.modalForm
+  });
+}
 
   render() {
     const {categories, getPosts} =  this.props;
@@ -71,6 +82,16 @@ class App extends Component {
 
         <p className="App-intro">
         </p>
+        <Button className="open-search"  onClick={this.toggleModalForm}></Button>
+        <Modal isOpen={this.state.modalForm} toggle={this.toggleModalForm} className={this.props.className}>
+         <ModalHeader toggle={this.toggleModalForm}>Post something! :D</ModalHeader>
+         <ModalBody>
+            <PostForm/>
+         </ModalBody>
+         <ModalFooter>
+           <Button color="secondary" onClick={this.toggleModalForm}>Cancel</Button>
+         </ModalFooter>
+       </Modal>
       </div>
     );
   }
