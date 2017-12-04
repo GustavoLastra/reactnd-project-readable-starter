@@ -6,6 +6,10 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const POST_VOTE = 'POST_VOTE';
 export const CATEGORY_POSTS = 'CATEGORY_POSTS';
 export const SORT_POSTS = 'SORT_POSTS';
+export const ADD_POST = 'ADD_POST';
+export const EDIT_POST = 'EDIT_POST';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
 
 
 export function getCategories (categories) {
@@ -85,4 +89,56 @@ export const asyncSortPosts = (dispatch) => (sortState) => {
     api
     .getPosts()
     .then(posts => dispatch(sortPosts(posts,sortState)))
+};
+
+export const addPost = (posts) => ({
+  type: ADD_POST,
+  posts,
+});
+
+export const asyncAddPost = (dispatch) => (post) => {
+  console.log("through action asyncAddPost post.name: " + post.name );
+    api
+    .createPost(post)
+    .then(() => api.getPosts()
+    .then(posts => dispatch(addPost(posts))))
+};
+
+export const editPost = (posts) => ({
+  type: EDIT_POST,
+  posts,
+});
+
+export const asyncEditPost = (dispatch) => (post) => {
+  console.log("through action asyncEditPost");
+    api
+    .updatePost(post)
+    .then(() => api.getPosts()
+    .then(posts => dispatch(editPost(posts))))
+};
+
+export const addComment = (comments) => ({
+  type: ADD_COMMENT,
+  comments,
+});
+
+export const asyncAddComment = (dispatch) => (comment) => {
+  console.log("through action asyncAddComment comment.body: " + comment.body );
+    api
+    .createComment(comment)
+    .then(() => api.getPostComments(comment.parentId)
+    .then(comments => dispatch(addComment(comments))))
+};
+
+export const editComment = (comments) => ({
+  type: EDIT_COMMENT,
+  comments,
+});
+
+export const asyncEditComment = (dispatch) => (comment) => {
+  console.log("through action asyncEditComment comment: "+ comment);
+    api
+    .updateCommentBody(comment)
+    .then(() => api.getPostComments(comment.parentId)
+    .then(comments => dispatch(editComment(comments))))
 };

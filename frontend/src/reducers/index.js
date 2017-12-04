@@ -7,7 +7,11 @@ import {
   GET_COMMENTS,
   POST_VOTE,
   CATEGORY_POSTS,
-  SORT_POSTS
+  SORT_POSTS,
+  ADD_POST,
+  EDIT_POST,
+  ADD_COMMENT,
+  EDIT_COMMENT
 }from '../actions'
 
 function posts (state = [], action) {
@@ -25,6 +29,10 @@ function posts (state = [], action) {
             return action.posts.sort((a , b) => b.voteScore - a.voteScore)
         }
         return action.posts.sort((a,b) => b.timestamp-a.timestamp)
+      case ADD_POST:
+        return action.posts
+      case EDIT_POST:
+        return action.posts
       default :
         return state
   }
@@ -39,11 +47,18 @@ function categories (state = [], action) {
 }
 
 function comments (state = [], action) {
-  if (action.type === GET_COMMENTS) {
-    console.log("On post reducer comments "+ action.comments );
-    return action.comments
+  switch (action.type) {
+    case GET_COMMENTS :
+      console.log("On post reducer comments "+ action.comments );
+      return action.comments
+    case ADD_COMMENT :
+      return action.comments
+    case EDIT_COMMENT :
+      console.log("On post reducer EDIT_COMMENT "+ action.comments );
+      return action.comments
+    default:
+      return state
   }
-  return state
 }
 
 /*function votes (state = [], action) {

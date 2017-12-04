@@ -27,6 +27,7 @@ class ListComments extends Component {
       {comments.map(comment => (
         <Comment key={comment.id}
         comment={comment}
+        postId={postId}
         />
       ))}
       </ListGroup>
@@ -46,10 +47,7 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-const ConnectedListComments =  connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ListComments);
-
-
-export default ConnectedListComments

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {asyncGetCategories, asyncGetPosts, asyncPostVote} from '../actions'
+import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncAddPost} from '../actions'
 import {connect} from 'react-redux';
 import ConnectedListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
@@ -7,8 +7,9 @@ import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import '../App.css';
 import { Link } from 'react-router-dom'
+import uuidv4 from 'uuid/v4'
 
-class PostForm extends Component {
+class PostFormAdd extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -21,6 +22,7 @@ class PostForm extends Component {
     this.selectCategoryFunny = this.selectCategoryFunny.bind(this);
     this.selectCategoryTechnology = this.selectCategoryTechnology.bind(this);
     this.selectCategoryFood = this.selectCategoryFood.bind(this);
+    this.onSubmitPost = this.onSubmitPost.bind(this);
   }
 
   selectCategoryAwesome = (  ) => {
@@ -46,6 +48,24 @@ class PostForm extends Component {
     this.setState({
       category: "food"
     });
+  }
+
+  onSubmitPost = (event) => {
+    let postId= uuidv4();//Math.random().toString(36).substr(2, 22);
+    let time= new Date();
+    let watch= time.toString();
+
+
+    const post = {
+      ...this.state,
+      id: postId,
+      timestamp: watch
+    }
+    console.log("postId: " + postId);
+    console.log("time: " + time);
+    console.log("Watch: " + watch);
+    console.log(JSON.stringify(post, null, 4));
+    this.props.addPost(post);
   }
 
   handleInputChange(e) {
@@ -103,7 +123,7 @@ class PostForm extends Component {
         </Label>
       </FormGroup>
     </FormGroup>
-    <Button>Submit</Button>
+    <Button onClick={this.onSubmitPost}>Submit</Button>
   </Form>
     );
   }
@@ -117,12 +137,12 @@ function mapStateToProps(state){
   }
 }
 
-function mapDispatchToProps(dispatch, OwnProps){
-  const {post} =  OwnProps;
-  console.log("mapDispatchToProps post:" + post);
+function mapDispatchToProps(dispatch){
+
   return{
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
+    addPost: (post) => asyncAddPost(dispatch)(post)
     //postVote: asyncPostVote(dispatch)(post.id, "upVote")
     //postVote:asyncPostVote(dispatch)(post.id),
     //postVote: (postId) => dispatch(asyncPostVote(postId, "upVote")),
@@ -132,4 +152,4 @@ function mapDispatchToProps(dispatch, OwnProps){
  export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostForm);
+)(PostFormAdd);

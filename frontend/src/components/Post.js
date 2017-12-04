@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import {asyncGetCategories, asyncGetPosts, asyncPostVote} from '../actions'
+import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncEditPost} from '../actions'
 import {connect} from 'react-redux';
-import ConnectedListComments from './ListComments';
+import ListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import PostFormEdit from './PostFormEdit';
+import CommentFormAdd from './CommentFormAdd';
 import '../App.css';
 import { Link } from 'react-router-dom'
 
@@ -12,16 +14,21 @@ class Post extends Component {
     super(props);
     this.state = {
       open: false,
-      modal: false,
+      modalComments: false,
       modalDetails: false,
+      modalEditPost: false,
+      modalAddComment: false
     };
-    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleModalComments = this.toggleModalComments.bind(this);
     this.toggleModalDetails = this.toggleModalDetails.bind(this);
+    this.toggleModalEditPost = this.toggleModalEditPost.bind(this);
+    this.toggleModalAddComment = this.toggleModalAddComment.bind(this);
+
   }
 
-  toggleModal() {
+  toggleModalComments() {
     this.setState({
-      modal: !this.state.modal
+      modalComments: !this.state.modalComments
     });
   }
 
@@ -30,10 +37,16 @@ class Post extends Component {
       modalDetails: !this.state.modalDetails
     });
   }
-
-  /*postVote(postId) {
-    this.props.postVote(postId,'upVote' )
-  }*/
+  toggleModalEditPost() {
+    this.setState({
+      modalEditPost: !this.state.modalEditPost
+    });
+  }
+  toggleModalAddComment= ()=> {
+    this.setState({
+      modalAddComment : !this.state.modalAddComment
+    });
+  }
 
   render() {
     const {post, postVote} =  this.props;
@@ -49,21 +62,38 @@ class Post extends Component {
           -{post.author}
           <p className="buttonlist">
             <Button color="success" onClick={postVote}>Tacos<span className="votes">{post.voteScore}</span></Button>
-            <Button color="primary" onClick={this.toggleModal}>Comments</Button>
+            <Button color="primary" onClick={this.toggleModalComments}>Comments</Button>
             <Button id={target} color="info" onClick={this.toggleModalDetails}>Details</Button>
+            <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
+            <Button color="danger" onClick={this.toggleModal}>Delete</Button>
 
-            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-              <ModalHeader toggle={this.toggle}>{post.title}</ModalHeader>
+            <Modal isOpen={this.state.modalComments} toggle={this.toggleModalComments} className={this.props.className}>
+              <ModalHeader toggle={this.toggleModalComments}>{post.title}</ModalHeader>
               <ModalBody>
                 {"<Posts body>: " + post.body}
                 <hr className="my-2" />
-                <ConnectedListComments
+                <ListComments
                 postId={post.id}
                 />
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={this.toggleModal}>Comment</Button>
-                <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                <Button color="primary" onClick={this.toggleModalAddComment}>Add comment</Button>
+                <Button color="secondary" onClick={this.toggleModalComments}>Close</Button>
+              </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={this.state.modalAddComment} toggle={this.toggleModalAddComment} className={this.props.className}>
+              <ModalHeader toggle={this.toggleModalAddComment}>Add a Comment!</ModalHeader>
+              <ModalBody>
+
+                <CommentFormAdd
+                postId={post.id}
+                />
+
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={this.toggleModalAddComment}>Close</Button>
+                <Button color="primary" onClick={this.toggleModalAddComment}>Close</Button>
               </ModalFooter>
             </Modal>
 
@@ -75,6 +105,21 @@ class Post extends Component {
                 <p>Category: {post.category}</p>
               </ModalBody>
               <ModalFooter>
+                <Button color="secondary" onClick={this.toggleModalDetails}>Close</Button>
+              </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={this.state.modalEditPost} toggle={this.toggleModalEditPost} className={this.props.className}>
+              <ModalHeader toggle={this.toggleModalEditPost}>Edit the post!</ModalHeader>
+              <ModalBody>
+
+                <PostFormEdit
+                  post={post}
+                />
+
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={this.toggleModalEditPost}>Close</Button>
               </ModalFooter>
             </Modal>
           </p>

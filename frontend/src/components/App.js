@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import FormSerialize from 'form-serialize';
 import {asyncGetCategories,asyncGetPosts, asyncGetCategoryPosts, asyncSortPosts} from '../actions'
 import taco from '../Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
 import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
-import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import '../App.css';
 import ListPosts from './ListPosts';
-import PostForm from './PostForm';
+import PostFormAdd from './PostFormAdd';
+import uuidv4 from 'uuid/v4'
 
 import ListCategories from './ListCategories';
 
@@ -45,10 +46,12 @@ class App extends Component {
   }
 
   toggleModalForm() {
-  this.setState({
-    modalForm: !this.state.modalForm
-  });
-}
+    this.setState({
+      modalForm: !this.state.modalForm
+    });
+  }
+
+
 
   render() {
     const {categories, getPosts} =  this.props;
@@ -86,10 +89,10 @@ class App extends Component {
         <Modal isOpen={this.state.modalForm} toggle={this.toggleModalForm} className={this.props.className}>
          <ModalHeader toggle={this.toggleModalForm}>Post something! :D</ModalHeader>
          <ModalBody>
-            <PostForm/>
+            <PostFormAdd/>
          </ModalBody>
          <ModalFooter>
-           <Button color="secondary" onClick={this.toggleModalForm}>Cancel</Button>
+           <Button color="secondary" onClick={this.toggleModalForm}>Close</Button>
          </ModalFooter>
        </Modal>
       </div>
@@ -100,7 +103,6 @@ function mapStateToProps(state){
   return{
     categories: state.categories,
     posts: state.posts,
-    //categoriesIds: state.categoriesIds
   }
 }
 
