@@ -46,6 +46,7 @@ class Comment extends Component {
 
           <CommentFormEdit
             comment={comment}
+            onReady={this.toggleModalEditComment}
           />
 
         </ModalBody>

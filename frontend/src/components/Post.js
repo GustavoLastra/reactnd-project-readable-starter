@@ -95,6 +95,7 @@ class Post extends Component {
 
                 <CommentFormAdd
                 postId={post.id}
+                onReady={this.toggleModalAddComment}
                 />
 
               </ModalBody>
@@ -107,8 +108,9 @@ class Post extends Component {
               <ModalHeader toggle={this.toggleModalDetails}>Details</ModalHeader>
               <ModalBody>
                 <p>Author: {post.author}</p>
-                <p>Timestamp: {post.timestamp}</p>
+                <p>Date: {post.timestamp}</p>
                 <p>Category: {post.category}</p>
+                <p>ID: {post.id}</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="secondary" onClick={this.toggleModalDetails}>Close</Button>
@@ -121,6 +123,7 @@ class Post extends Component {
 
                 <PostFormEdit
                   post={post}
+                  onReady={this.toggleModalEditPost}
                 />
 
               </ModalBody>

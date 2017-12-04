@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux'
-//import posts from './posts'
-//import categories from './categories'
 import {
   GET_CATEGORIES,
   GET_POSTS,
@@ -66,12 +64,6 @@ function comments (state = [], action) {
       return state
   }
 }
-
-/*function votes (state = [], action) {
-
-  return state
-}*/
-
 
 export default combineReducers({
   categories,

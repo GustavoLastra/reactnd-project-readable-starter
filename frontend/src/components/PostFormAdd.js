@@ -66,6 +66,8 @@ class PostFormAdd extends Component {
     console.log("Watch: " + watch);
     console.log(JSON.stringify(post, null, 4));
     this.props.addPost(post);
+    this.props.onReady();
+    console.log("after onReady");
   }
 
   handleInputChange(e) {
@@ -73,7 +75,10 @@ class PostFormAdd extends Component {
   }
 
   render() {
-      console.log("here JSON form state this.state:" + JSON.stringify(this.state, null, 4));
+    console.log("here JSON form state this.state:" + JSON.stringify(this.state, null, 4));
+    const { title, body, author, category } = this.state;
+    const isEnabled =title.length > 0 && body.length > 0 && author.length > 0 && category.length > 0;
+
     return (
 
   <Form>
@@ -123,7 +128,7 @@ class PostFormAdd extends Component {
         </Label>
       </FormGroup>
     </FormGroup>
-    <Button onClick={this.onSubmitPost}>Submit</Button>
+    <Button disabled={!isEnabled} onClick={this.onSubmitPost}>Submit</Button>
   </Form>
     );
   }

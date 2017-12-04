@@ -34,6 +34,7 @@ class CommentFormEdit extends Component {
     console.log("Watch: " + watch);
     console.log("CommentFormEdiiiiiiiiit"+ JSON.stringify(comment, null, 4));
     this.props.editComment(comment);
+    this.props.onReady();
   }
   handleInputChange(e) {
     this.setState({[e.target.name]: e.target.value})
@@ -42,6 +43,9 @@ class CommentFormEdit extends Component {
   render() {
     const {post} = this.props;
       console.log("here JSON form state this.state:" + JSON.stringify(this.state, null, 4));
+      const {  body} = this.state;
+      const isEnabled = body.length > 0;
+
     return (
 
       <Form>
@@ -50,7 +54,7 @@ class CommentFormEdit extends Component {
           <Input type="textarea" name="body" id="exampleText" value={this.state.body} placeholder={this.props.comment.body}
           onChange={ e => this.handleInputChange(e) }/>
         </FormGroup>
-        <Button onClick={this.onSubmitComment}>Submit</Button>
+        <Button disabled={!isEnabled} onClick={this.onSubmitComment}>Submit</Button>
       </Form>
     );
   }

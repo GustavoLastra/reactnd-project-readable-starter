@@ -38,8 +38,9 @@ class PostFormAdd extends Component {
     console.log("id" + this.props.post.id);
     console.log(JSON.stringify(newPost, null, 4));
     this.props.editPost(newPost);
+    this.props.onReady();
   }
-  
+
   handleInputChange(e) {
     this.setState({[e.target.name]: e.target.value})
   }
@@ -47,6 +48,8 @@ class PostFormAdd extends Component {
   render() {
     const {post} = this.props;
       console.log("here JSON form state this.state:" + JSON.stringify(this.state, null, 4));
+      const { title, body, author, category } = this.state;
+      const isEnabled =title.length > 0 && body.length > 0;
     return (
 
   <Form>
@@ -61,7 +64,7 @@ class PostFormAdd extends Component {
       <Input type="textarea" name="body" id="exampleText" value={this.state.body} placeholder={post.body}
       onChange={ e => this.handleInputChange(e) }/>
     </FormGroup>
-    <Button onClick={this.onSubmitPost}>Submit</Button>
+    <Button disabled={!isEnabled} onClick={this.onSubmitPost}>Submit</Button>
   </Form>
     );
   }

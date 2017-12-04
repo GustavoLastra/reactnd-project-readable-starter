@@ -51,8 +51,6 @@ class App extends Component {
     });
   }
 
-
-
   render() {
     const {categories, getPosts} =  this.props;
     return (
@@ -89,7 +87,9 @@ class App extends Component {
         <Modal isOpen={this.state.modalForm} toggle={this.toggleModalForm} className={this.props.className}>
          <ModalHeader toggle={this.toggleModalForm}>Post something! :D</ModalHeader>
          <ModalBody>
-            <PostFormAdd/>
+            <PostFormAdd
+            onReady={this.toggleModalForm}
+            />
          </ModalBody>
          <ModalFooter>
            <Button color="secondary" onClick={this.toggleModalForm}>Close</Button>

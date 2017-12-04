@@ -34,6 +34,7 @@ class CommentFormAdd extends Component {
     console.log("Watch: " + watch);
     console.log(JSON.stringify(comment, null, 4));
     this.props.addComment(comment);
+    this.props.onReady();
   }
 
   handleInputChange(e) {
@@ -42,6 +43,9 @@ class CommentFormAdd extends Component {
 
   render() {
       console.log("here JSON form state this.state:" + JSON.stringify(this.state, null, 4));
+      const {  body, author } = this.state;
+      const isEnabled = body.length > 0 && author.length > 0 ;
+
     return (
 
   <Form>
@@ -55,7 +59,7 @@ class CommentFormAdd extends Component {
       <Input type="textarea" name="body" id="exampleText" value={this.state.body}
       onChange={ e => this.handleInputChange(e) }/>
     </FormGroup>
-    <Button onClick={this.onSubmitComment}>Submit</Button>
+    <Button disabled={!isEnabled} onClick={this.onSubmitComment}>Submit</Button>
   </Form>
     );
   }
