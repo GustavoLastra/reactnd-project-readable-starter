@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncEditPost} from '../actions'
+import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncEditPost,asyncDeletePost} from '../actions'
 import {connect} from 'react-redux';
 import ListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
@@ -23,6 +23,7 @@ class Post extends Component {
     this.toggleModalDetails = this.toggleModalDetails.bind(this);
     this.toggleModalEditPost = this.toggleModalEditPost.bind(this);
     this.toggleModalAddComment = this.toggleModalAddComment.bind(this);
+    this.deletePost = this.deletePost.bind(this);
 
   }
 
@@ -48,6 +49,11 @@ class Post extends Component {
     });
   }
 
+  deletePost() {
+    const {post} =  this.props;
+    this.props.deletePost(post.id);
+  }
+
   render() {
     const {post, postVote} =  this.props;
     let target  = post.author + "hola";
@@ -65,7 +71,7 @@ class Post extends Component {
             <Button color="primary" onClick={this.toggleModalComments}>Comments</Button>
             <Button id={target} color="info" onClick={this.toggleModalDetails}>Details</Button>
             <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
-            <Button color="danger" onClick={this.toggleModal}>Delete</Button>
+            <Button color="danger" onClick={this.deletePost}>Delete</Button>
 
             <Modal isOpen={this.state.modalComments} toggle={this.toggleModalComments} className={this.props.className}>
               <ModalHeader toggle={this.toggleModalComments}>{post.title}</ModalHeader>
@@ -145,6 +151,7 @@ function mapDispatchToProps(dispatch, OwnProps){
     getPosts: asyncGetPosts(dispatch),
     //postVote: asyncPostVote(dispatch)(post.id, "upVote")
     postVote:asyncPostVote(dispatch)(post.id),
+    deletePost:(postId)=>asyncDeletePost(dispatch)(postId)
     //postVote: (postId) => dispatch(asyncPostVote(postId, "upVote")),
   }
 }

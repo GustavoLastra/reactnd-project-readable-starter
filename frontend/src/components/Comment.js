@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncEditPost,asyncDeletePost,asyncDeleteComment} from '../actions'
 import CommentFormEdit from './CommentFormEdit';
+import {connect} from 'react-redux';
 
 class Comment extends Component {
   constructor (props) {
@@ -11,12 +13,17 @@ class Comment extends Component {
       modalEditComment: false,
     };
     this.toggleModalEditComment = this.toggleModalEditComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
   }
 
   toggleModalEditComment= ()=> {
     this.setState({
       modalEditComment : !this.state.modalEditComment
     });
+  }
+
+  deleteComment() {
+    this.props.deleteComment(this.props.comment)
   }
 
 
@@ -28,7 +35,7 @@ class Comment extends Component {
       <ListGroupItem>
         {comment.body}
         <Button color="warning" onClick={this.toggleModalEditComment}>Edit</Button>
-        <Button color="danger" >Delete</Button>
+        <Button color="danger" onClick={this.deleteComment} >Delete</Button>
       </ListGroupItem>
 
       <Modal isOpen={this.state.modalEditComment} toggle={this.toggleModalEditComment} className={this.props.className}>
@@ -42,7 +49,6 @@ class Comment extends Component {
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={this.toggleModalEditComment}>Close</Button>
-          <Button color="primary" onClick={this.toggleModalAddPost}>Close</Button>
         </ModalFooter>
       </Modal>
 
@@ -50,6 +56,23 @@ class Comment extends Component {
     );
   }
 }
+function mapStateToProps(state){
+  return {
+    categories: state.categories,
+    posts: state.posts,
+    //categoriesIds: state.categoriesIds
+  }
+}
 
+function mapDispatchToProps(dispatch, OwnProps){
+  //const {post} =  OwnProps;
+  //const {comment} =  this.props;
+  return{
+    deleteComment:(comment) => asyncDeleteComment(dispatch)(comment)
+  }
+}
 
-export default Comment
+ export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Comment);

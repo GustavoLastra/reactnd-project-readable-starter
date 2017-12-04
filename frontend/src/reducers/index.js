@@ -11,7 +11,9 @@ import {
   ADD_POST,
   EDIT_POST,
   ADD_COMMENT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  DELETE_POST,
+  DELETE_COMMENT
 }from '../actions'
 
 function posts (state = [], action) {
@@ -33,6 +35,8 @@ function posts (state = [], action) {
         return action.posts
       case EDIT_POST:
         return action.posts
+        case DELETE_POST:
+          return action.posts
       default :
         return state
   }
@@ -55,6 +59,8 @@ function comments (state = [], action) {
       return action.comments
     case EDIT_COMMENT :
       console.log("On post reducer EDIT_COMMENT "+ action.comments );
+      return action.comments
+    case DELETE_COMMENT :
       return action.comments
     default:
       return state

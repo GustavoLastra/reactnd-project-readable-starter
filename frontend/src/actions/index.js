@@ -8,8 +8,10 @@ export const CATEGORY_POSTS = 'CATEGORY_POSTS';
 export const SORT_POSTS = 'SORT_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const EDIT_POST = 'EDIT_POST';
+export const DELETE_POST = 'DELETE_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 
 export function getCategories (categories) {
@@ -141,4 +143,32 @@ export const asyncEditComment = (dispatch) => (comment) => {
     .updateCommentBody(comment)
     .then(() => api.getPostComments(comment.parentId)
     .then(comments => dispatch(editComment(comments))))
+};
+
+
+////////////////////////////////
+export const deletePost = (posts) => ({
+  type: DELETE_POST,
+  posts,
+});
+
+export const asyncDeletePost = (dispatch) => (postId) => {
+  console.log("through action asyncDeletePost ");
+    api
+    .deletePost(postId)
+    .then(() => api.getPosts()
+    .then(posts => dispatch(deletePost(posts))))
+};
+///////////////////////////////////
+export const deleteComment = (comments) => ({
+  type: DELETE_COMMENT,
+  comments,
+});
+
+export const asyncDeleteComment = (dispatch) => (comment) => {
+  console.log("through action asyncDeleteComment ");
+    api
+    .deleteComment(comment.id)
+    .then(() => api.getPostComments(comment.parentId)
+    .then(comments => dispatch(deleteComment(comments))))
 };
