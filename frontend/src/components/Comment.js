@@ -33,9 +33,11 @@ class Comment extends Component {
     return (
       <div>
       <ListGroupItem>
-        {comment.body}
-        <Button color="warning" onClick={this.toggleModalEditComment}>Edit</Button>
-        <Button color="danger" onClick={this.deleteComment} >Delete</Button>
+        {comment.body} -{comment.author}
+        <div className="buttonlist">
+          <Button color="warning" onClick={this.toggleModalEditComment}>Edit</Button>
+          <Button color="danger" onClick={this.deleteComment}>Delete</Button>
+        </div>
       </ListGroupItem>
 
       <Modal isOpen={this.state.modalEditComment} toggle={this.toggleModalEditComment} className={this.props.className}>

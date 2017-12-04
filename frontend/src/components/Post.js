@@ -74,9 +74,10 @@ class Post extends Component {
             <Button color="danger" onClick={this.deletePost}>Delete</Button>
 
             <Modal isOpen={this.state.modalComments} toggle={this.toggleModalComments} className={this.props.className}>
-              <ModalHeader toggle={this.toggleModalComments}>{post.title}</ModalHeader>
+              <ModalHeader toggle={this.toggleModalComments}>Comments</ModalHeader>
               <ModalBody>
-                {"<Posts body>: " + post.body}
+                <h3>{post.title}</h3>
+                <p>{post.body}</p>
                 <hr className="my-2" />
                 <ListComments
                 postId={post.id}
@@ -84,7 +85,7 @@ class Post extends Component {
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" onClick={this.toggleModalAddComment}>Add comment</Button>
-                <Button color="secondary" onClick={this.toggleModalComments}>Close</Button>
+                <Button color="secondary" onClick={this.toggleModalComments}>Cancel</Button>
               </ModalFooter>
             </Modal>
 
@@ -98,8 +99,7 @@ class Post extends Component {
 
               </ModalBody>
               <ModalFooter>
-                <Button color="secondary" onClick={this.toggleModalAddComment}>Close</Button>
-                <Button color="primary" onClick={this.toggleModalAddComment}>Close</Button>
+                <Button color="secondary" onClick={this.toggleModalAddComment}>Cancel</Button>
               </ModalFooter>
             </Modal>
 
