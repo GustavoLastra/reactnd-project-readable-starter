@@ -5,6 +5,8 @@ export default function posts (state = [], action) {
         return action.posts
       case actionTypes.POST_VOTE :
         return action.posts
+      case actionTypes.POST_DOWNVOTE :
+        return action.posts
       case actionTypes.CATEGORY_POSTS:
         return action.posts
       case actionTypes.SORT_POSTS:

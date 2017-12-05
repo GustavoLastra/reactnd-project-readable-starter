@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 //import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncEditPost,asyncDeletePost} from '../actions'
-import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
+import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost,asyncPostDownVote} from '../actions/posts';
 import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
 import {asyncGetCategories} from '../actions/categories';
 import {connect} from 'react-redux';
 import ListComments from './ListComments';
-import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+import { Badge, Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import PostFormEdit from './PostFormEdit';
 import CommentFormAdd from './CommentFormAdd';
 import '../App.css';
 import { Link } from 'react-router-dom'
+import taco from '../Taco.png';
 
 class Post extends Component {
   constructor (props) {
@@ -65,19 +66,21 @@ class Post extends Component {
   }
 
   render() {
-    const {post, postVote} =  this.props;
+    const {post, postVote,postDownVote} =  this.props;
     let target  = post.author + "hola";
     return (
 
       <Jumbotron >
         <Container fluid>
-          <h1 className="display-5">"{post.title}"</h1>
+        <h1><div className="buttonlistright"><img src={taco} className="App-logodos" alt="logo" /><Badge   color="secondary">{post.voteScore}</Badge></div></h1>
+        <h1 className="display-5">"{post.title}"</h1>
           <p className="lead">
             {post.body}
           </p>
           -{post.author}
           <p className="buttonlist">
-            <Button color="success" onClick={postVote}>Tacos<span className="votes">{post.voteScore}</span></Button>
+            <Button color="success" onClick={postVote}>+</Button>
+            <Button color="danger" onClick={postDownVote}>-</Button>
             <Button color="primary" onClick={this.toggleModalComments}>Comments<span className="comment">{post.commentCount}</span></Button>
             <Button id={target} color="info" onClick={this.toggleModalDetails}>Details</Button>
             <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
@@ -162,10 +165,9 @@ function mapDispatchToProps(dispatch, OwnProps){
   return{
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
-    //postVote: asyncPostVote(dispatch)(post.id, "upVote")
     postVote:asyncPostVote(dispatch)(post.id),
+    postDownVote: asyncPostDownVote(dispatch)(post.id),
     deletePost:(postId)=>asyncDeletePost(dispatch)(postId)
-    //postVote: (postId) => dispatch(asyncPostVote(postId, "upVote")),
   }
 }
 

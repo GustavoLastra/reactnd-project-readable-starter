@@ -24,7 +24,6 @@ export const asyncGetCategoryPosts = (dispatch) => (category)=> {
     .then(posts => dispatch(categoryPosts(posts)))
 };
 
-
 export const postVote = (posts) => ({               /* vote for a post action*/
   type: actionTypes.POST_VOTE,
   //posts,
@@ -37,6 +36,20 @@ export const asyncPostVote = (dispatch) => (postId)=> () => {
     .votePost(postId)
     .then(() => api.getPosts()
     .then(posts => dispatch(postVote(posts))))
+};
+
+export const downVotePost = (posts) => ({               /* downvote for a post action*/
+  type: actionTypes.POST_DOWNVOTE,
+  //posts,
+  posts
+});
+
+export const asyncPostDownVote = (dispatch) => (postId)=> () => {
+  console.log("thorough asyncPostDownVote action (postId, option): " + postId + " " );
+  api
+    .downVotePost(postId)
+    .then(() => api.getPosts()
+    .then(posts => dispatch(downVotePost(posts))))
 };
 
 export const sortPosts = (posts,sortState) => ({    /* Sort posts action*/

@@ -54,6 +54,24 @@ a {
     border-radius: 0.25rem;
 }
 
+.arrowUp {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid black;
+}
+
+.arrowDown {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 20px solid #f00;
+}
+
 .comment {
     color: #fff;
     background-color: #007bff;
@@ -70,6 +88,10 @@ a {
 
 .buttonlist {
   text-align: right;
+}
+
+.buttonlistright {
+  float: right;
 }
 
 a:focus {
