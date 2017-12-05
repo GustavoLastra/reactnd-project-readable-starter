@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {asyncGetComments} from '../actions'
+import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
+import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
+import {asyncGetCategories} from '../actions/categories';
 import {connect} from 'react-redux';
 import Comment from './Comment';
 import { ListGroup, ListGroupItem } from 'reactstrap';

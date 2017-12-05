@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import FormSerialize from 'form-serialize';
-import {asyncGetCategories,asyncGetPosts, asyncGetCategoryPosts, asyncSortPosts} from '../actions'
+import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
+import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
+import {asyncGetCategories} from '../actions/categories';
 import taco from '../Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';

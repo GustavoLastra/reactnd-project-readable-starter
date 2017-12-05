@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncEditPost,asyncDeletePost,asyncDeleteComment} from '../actions'
+import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
+import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
+import {asyncGetCategories} from '../actions/categories';
 import CommentFormEdit from './CommentFormEdit';
 import {connect} from 'react-redux';
 

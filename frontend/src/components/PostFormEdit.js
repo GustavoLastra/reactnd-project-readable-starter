@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncAddPost, asyncEditPost} from '../actions'
+import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
+import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
+import {asyncGetCategories} from '../actions/categories';
 import {connect} from 'react-redux';
 import ConnectedListComments from './ListComments';
 import { Jumbotron, Container, Button,  Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
@@ -85,9 +87,6 @@ function mapDispatchToProps(dispatch){
     getPosts: asyncGetPosts(dispatch),
     addPost: (post) => asyncAddPost(dispatch)(post),
     editPost:(post) => asyncEditPost(dispatch)(post)
-    //postVote: asyncPostVote(dispatch)(post.id, "upVote")
-    //postVote:asyncPostVote(dispatch)(post.id),
-    //postVote: (postId) => dispatch(asyncPostVote(postId, "upVote")),
   }
 }
 
