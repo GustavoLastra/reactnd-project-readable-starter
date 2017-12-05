@@ -27,6 +27,7 @@ class Post extends Component {
     this.toggleModalEditPost = this.toggleModalEditPost.bind(this);
     this.toggleModalAddComment = this.toggleModalAddComment.bind(this);
     this.deletePost = this.deletePost.bind(this);
+    this.onReady = this.onReady.bind(this);
 
   }
 
@@ -57,6 +58,12 @@ class Post extends Component {
     this.props.deletePost(post.id);
   }
 
+  onReady() {
+    const {post} =  this.props;
+    post.commentCount+=1;
+    this.toggleModalAddComment();
+  }
+
   render() {
     const {post, postVote} =  this.props;
     let target  = post.author + "hola";
@@ -71,7 +78,7 @@ class Post extends Component {
           -{post.author}
           <p className="buttonlist">
             <Button color="success" onClick={postVote}>Tacos<span className="votes">{post.voteScore}</span></Button>
-            <Button color="primary" onClick={this.toggleModalComments}>Comments</Button>
+            <Button color="primary" onClick={this.toggleModalComments}>Comments<span className="comment">{post.commentCount}</span></Button>
             <Button id={target} color="info" onClick={this.toggleModalDetails}>Details</Button>
             <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
             <Button color="danger" onClick={this.deletePost}>Delete</Button>
@@ -83,7 +90,7 @@ class Post extends Component {
                 <p>{post.body}</p>
                 <hr className="my-2" />
                 <ListComments
-                postId={post.id}
+                post={post}
                 />
               </ModalBody>
               <ModalFooter>
@@ -98,7 +105,7 @@ class Post extends Component {
 
                 <CommentFormAdd
                 postId={post.id}
-                onReady={this.toggleModalAddComment}
+                onReady={this.onReady}
                 />
 
               </ModalBody>

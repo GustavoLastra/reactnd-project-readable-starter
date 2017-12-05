@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
-import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
 import {asyncGetCategories} from '../actions/categories';
 import {connect} from 'react-redux';
 import ConnectedListComments from './ListComments';
@@ -34,11 +33,6 @@ class PostFormAdd extends Component {
       category: this.props.post.category,
       author: this.props.post.author
     }
-
-    console.log("time: " + time);
-    console.log("Watch: " + watch);
-    console.log("id" + this.props.post.id);
-    console.log(JSON.stringify(newPost, null, 4));
     this.props.editPost(newPost);
     this.props.onReady();
   }
@@ -49,13 +43,12 @@ class PostFormAdd extends Component {
 
   render() {
     const {post} = this.props;
-      console.log("here JSON form state this.state:" + JSON.stringify(this.state, null, 4));
+
       const { title, body, author, category } = this.state;
       const isEnabled =title.length > 0 && body.length > 0;
     return (
 
   <Form>
-
     <FormGroup>
       <Label for="name">Edit the title of your post</Label>
       <Input type="text" name="title" id="title" value={this.state.title} placeholder={post.title}

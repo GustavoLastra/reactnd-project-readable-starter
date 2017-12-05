@@ -26,12 +26,11 @@ class Comment extends Component {
 
   deleteComment() {
     this.props.deleteComment(this.props.comment)
+    this.props.post.commentCount-=1;
   }
 
-
-
   render() {
-    const {comment, postId} =  this.props;
+    const {comment, post} =  this.props;
     return (
       <div>
       <ListGroupItem>

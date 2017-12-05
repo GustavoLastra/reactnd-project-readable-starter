@@ -25,7 +25,7 @@ const defaultData = {
     category: 'funny',
     voteScore: 1,
     deleted: false,
-    commentCount: 2
+    commentCount: 0
   },
   "8xf0y6ziyjabvozdd253ne": {
     id: '8xf0y6ziyjabvozdd253ne',
@@ -36,7 +36,7 @@ const defaultData = {
     category: 'technology',
     voteScore: 1,
     deleted: false,
-    commentCount: 2
+    commentCount: 0
   },
   "6ni6ok3ym7mf1p33lnez": {
     id: '6ni6ok3ym7mf1p33lnez',

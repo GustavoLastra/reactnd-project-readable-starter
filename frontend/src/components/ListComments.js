@@ -18,18 +18,18 @@ class ListComments extends Component {
   }
 
   componentWillMount() {
-    const { postId, getComments } =  this.props;
-    getComments(postId);
+    const { post, getComments } =  this.props;
+    getComments(post.id);
   }
 
   render() {
-    const {comments, postId} =  this.props;
+    const {comments, post} =  this.props;
     return (
       <ListGroup>
       {comments.map(comment => (
         <Comment key={comment.id}
         comment={comment}
-        postId={postId}
+        post={post}
         />
       ))}
       </ListGroup>
