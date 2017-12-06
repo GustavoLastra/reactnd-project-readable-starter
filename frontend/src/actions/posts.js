@@ -25,7 +25,7 @@ export const asyncGetCategoryPosts = (dispatch) => (category)=> {
 };
 
 export const postVote = (posts) => ({               /* vote for a post action*/
-  type: actionTypes.POST_VOTE,
+  type: actionTypes.POST_VOTE_POSTS,
   //posts,
   posts
 });
@@ -39,7 +39,7 @@ export const asyncPostVote = (dispatch) => (postId)=> () => {
 };
 
 export const downVotePost = (posts) => ({               /* downvote for a post action*/
-  type: actionTypes.POST_DOWNVOTE,
+  type: actionTypes.POST_DOWNVOTE_POSTS,
   //posts,
   posts
 });

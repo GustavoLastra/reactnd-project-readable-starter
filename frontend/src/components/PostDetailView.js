@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import FormSerialize from 'form-serialize';
-import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost,asyncPostDownVote} from '../actions/posts';
+import {asyncGetPosts,asyncGetCategoryPosts,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
 import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
 import {asyncGetCategories} from '../actions/categories';
-import {asyncGetPost} from '../actions/post';
+import {asyncGetPost,asyncPostVote,asyncPostDownVote} from '../actions/post';
 import taco from '../Taco.png';
 import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
@@ -57,8 +57,9 @@ class PostDetailView extends Component {
     });
   }
   deletePost() {
-    const {post} =  this.props;
+    const {post,history} =  this.props;
     this.props.deletePost(post.id);
+    history.push("/");
   }
 
   onReady() {

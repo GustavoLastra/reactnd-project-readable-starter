@@ -3,9 +3,9 @@ export default function posts (state = [], action) {
   switch (action.type) {
       case actionTypes.GET_POSTS :
         return action.posts
-      case actionTypes.POST_VOTE :
+      case actionTypes.POST_VOTE_POSTS :
         return action.posts
-      case actionTypes.POST_DOWNVOTE :
+      case actionTypes.POST_DOWNVOTE_POSTS:
         return action.posts
       case actionTypes.CATEGORY_POSTS:
         return action.posts

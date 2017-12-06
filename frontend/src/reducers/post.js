@@ -1,10 +1,14 @@
 import * as actionTypes from '../actions/actionTypes'
 
 export default function post (state = [], action) {
-  console.log("On post reducer99999999 ");
-  if (action.type === actionTypes.GET_POST) {
-    console.log("On post reducer Category "+ action.post );
-    return action.post
+  switch (action.type) {
+      case actionTypes.GET_POST :
+        return action.post
+      case actionTypes.POST_VOTE :
+        return action.post
+      case actionTypes.POST_DOWNVOTE :
+        return action.post
+      default :
+        return state
   }
-  return state
 }
