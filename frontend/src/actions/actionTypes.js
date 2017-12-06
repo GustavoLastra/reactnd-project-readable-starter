@@ -3,6 +3,7 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const STORE_CATEGORY = 'STORE_CATEGORY'
 /* Posts actions*/
 export const GET_POSTS = 'GET_POSTS';
+export const GET_POST = 'GET_POST';
 export const POST_VOTE = 'POST_VOTE';
 export const POST_DOWNVOTE = 'POST_DOWNVOTE'
 export const CATEGORY_POSTS = 'CATEGORY_POSTS';

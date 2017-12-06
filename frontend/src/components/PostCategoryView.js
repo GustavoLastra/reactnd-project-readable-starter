@@ -30,16 +30,17 @@ class PostCategoryView extends Component {
   componentDidMount() {
     const {getCategoryPosts, category} = this.props;
     const { match, location, history } = this.props;
-    var currentLocation = location.pathname.substr(1);;
+    var currentLocation = location.pathname.substr(1);
     getCategoryPosts(currentLocation);
   }
 
 
   render() {
     const { match, location, history } = this.props;
-    var currentLocation = location.pathname.substr(1);;
+    var currentLocation = this.props.match.params.category;//location.pathname.substr(1);
     console.log("renderPostCateory category: "+category);
-    const {category} = this.props
+    console.log(" this.props.match.params.category111111111111111: "+ this.props.match.params.category)
+    const {category} = this.props;
     return (
       <div>
 

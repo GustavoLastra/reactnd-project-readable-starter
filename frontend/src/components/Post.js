@@ -12,6 +12,8 @@ import CommentFormAdd from './CommentFormAdd';
 import '../App.css';
 import { Link } from 'react-router-dom'
 import taco from '../Taco.png';
+import { Route } from 'react-router-dom' //imported the React Router
+import { withRouter } from 'react-router'
 
 class Post extends Component {
   constructor (props) {
@@ -19,12 +21,12 @@ class Post extends Component {
     this.state = {
       open: false,
       modalComments: false,
-      modalDetails: false,
+      //modalDetails: false,
       modalEditPost: false,
       modalAddComment: false
     };
     this.toggleModalComments = this.toggleModalComments.bind(this);
-    this.toggleModalDetails = this.toggleModalDetails.bind(this);
+    this.goToDetails = this.goToDetails.bind(this);
     this.toggleModalEditPost = this.toggleModalEditPost.bind(this);
     this.toggleModalAddComment = this.toggleModalAddComment.bind(this);
     this.deletePost = this.deletePost.bind(this);
@@ -38,11 +40,13 @@ class Post extends Component {
     });
   }
 
-  toggleModalDetails() {
-    this.setState({
-      modalDetails: !this.state.modalDetails
-    });
+  goToDetails() {
+    const {post,history} =  this.props;
+    const path= '/' + post.category+ '/'+post.id;
+    console.log("pathhhhhhhhhhhhhhhhhhhhhhhhhh :" + path);
+    history.push(path);
   }
+
   toggleModalEditPost() {
     this.setState({
       modalEditPost: !this.state.modalEditPost
@@ -82,7 +86,7 @@ class Post extends Component {
             <Button color="success" onClick={postVote}>+</Button>
             <Button color="danger" onClick={postDownVote}>-</Button>
             <Button color="primary" onClick={this.toggleModalComments}>Comments<span className="comment">{post.commentCount}</span></Button>
-            <Button id={target} color="info" onClick={this.toggleModalDetails}>Details</Button>
+            <Button color="info" onClick={this.goToDetails} >Details</Button>
             <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
             <Button color="danger" onClick={this.deletePost}>Delete</Button>
 
@@ -171,7 +175,10 @@ function mapDispatchToProps(dispatch, OwnProps){
   }
 }
 
- export default connect(
+
+const PostRouter = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Post);
+)(Post));
+
+export default PostRouter

@@ -54,6 +54,19 @@ class App extends Component {
 
   render() {
     const {categories, getPosts, category} =  this.props;
+
+    /*<Route exact path='/technology' render={() => (
+      <PostCategoryView
+      />
+    )}/>
+    <Route exact path='/food' render={() => (
+      <PostCategoryView
+      />
+    )}/>
+    <Route exact path='/Awesome' render={() => (
+      <PostCategoryView
+      />
+    )}/> */
     return (
       <div className="App">
 
@@ -86,22 +99,11 @@ class App extends Component {
           </main>
         )}/>
 
-        <Route exact path='/funny' render={() => (
+        <Route exact path='/:category' render={() => (
           <PostCategoryView
           />
         )}/>
-        <Route exact path='/technology' render={() => (
-          <PostCategoryView
-          />
-        )}/>
-        <Route exact path='/food' render={() => (
-          <PostCategoryView
-          />
-        )}/>
-        <Route exact path='/Awesome' render={() => (
-          <PostCategoryView
-          />
-        )}/>
+
         <Route exact path='/:category/:postId' render={() => (
           <PostDetailView
           />
