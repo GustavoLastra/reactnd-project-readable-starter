@@ -1,52 +1,45 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-//import {asyncGetCategories,asyncGetPosts} from '../actions'
+import FormSerialize from 'form-serialize';
 import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
 import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
 import {asyncGetCategories} from '../actions/categories';
+import taco from '../Taco.png';
+import { slide as Menu } from 'react-burger-menu'
 import classNames from 'classnames';
-import Post from './Post';
+import { Button, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import '../App.css';
+import ListPosts from './ListPosts';
+import PostFormAdd from './PostFormAdd';
+import uuidv4 from 'uuid/v4'
+import { Route } from 'react-router-dom' //imported the React Router
+
+import ListCategories from './ListCategories';
+
 import { Link } from 'react-router-dom'
 
-class ListPosts extends Component {
+class PostDetailView extends Component {
   constructor (props) {
     super(props);
     this.state = {
+      open: false,
     };
-  }
-  componentDidMount() {
-    const { posts } =  this.props;
-      //this.props.getCategories();
-      this.props.getPosts();
+
   }
 
   render() {
-    const { posts} =  this.props;
+    console.log("renderPostDetail");
     return (
-      <div className="App">
-        <div className="<ListPosts/>">
-
-        <ul className="menu-list">
-            {posts.map(post =>
-              <li key={post.title}>
-                <Post
-                post={ post}
-                />
-              </li>
-            )}
-        </ul>
-        </div>
+      <div>
+      <h1>Post Detail</h1>
       </div>
     );
   }
 }
-
 function mapStateToProps(state){
   return{
     categories: state.categories,
     posts: state.posts,
-    //categoriesIds: state.categoriesIds
   }
 }
 
@@ -54,10 +47,12 @@ function mapDispatchToProps(dispatch){
   return{
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
+    getCategoryPosts: (categoryName)=> asyncGetCategoryPosts(dispatch)(categoryName),
+    asyncSortPosts: (sortState)=>asyncSortPosts(dispatch)(sortState)
   }
 }
 
-export default  connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ListPosts);
+)(PostDetailView);

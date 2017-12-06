@@ -14,16 +14,14 @@ import PostFormAdd from './PostFormAdd';
 import PostCategoryView from './PostCategoryView';
 import uuidv4 from 'uuid/v4'
 import { Route } from 'react-router-dom' //imported the React Router
-import ListCategories from './ListCategories';
-import PostsView from './PostsView'
-import PostDetailView from './PostDetailView'
 import {withRouter} from 'react-router-dom';
 
 
+import ListCategories from './ListCategories';
 
 import { Link } from 'react-router-dom'
 
-class App extends Component {
+class PostView extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -31,10 +29,17 @@ class App extends Component {
       modal: false,
       modalForm:false
     };
+    //this.showPostsByCategory = this.showPostsByCategory.bind(this);
     this.sortPostsHot = this.sortPostsHot.bind(this);
     this.sortPostsFresh = this.sortPostsFresh.bind(this);
     this.toggleModalForm = this.toggleModalForm.bind(this);
   }
+
+  /*showPostsByCategory(categoryName) {   //onCategorySelect= {this.showPostsByCategory} on ListCategories
+    const {getCategoryPosts} = this.props
+      console.log("on App's showPostsByCategory function: " + categoryName);
+    getCategoryPosts(categoryName);
+  }*/
 
   sortPostsHot() {
     console.log("function sortPosts this.state.sortState:" +this.state.sortState);
@@ -53,61 +58,14 @@ class App extends Component {
   }
 
   render() {
-    const {categories, getPosts, category} =  this.props;
+    const {categories, getPosts} =  this.props;
     return (
       <div className="App">
 
-        <Menu
-          id={ "sidebar" }
-          className={ "my-menu" }
-          isOpen={this.state.open}
-        >
-          <ul className="menu-list">
-            <li><Link to='/' key="home"><h5>HOME</h5></Link></li>
-            <li key="sortBy" className="menu-segment" >Sort by</li>
-            <li key="hot"><a id="hot" className="menu-item" onClick={this.sortPostsHot}>HOT</a></li>
-            <li key="fresh"><a id="fresh" className="menu-item" onClick={this.sortPostsFresh}>FRESH</a></li>
-            <li key="categories" className="menu-segment">Categories</li>
-            <ListCategories
-            />
-          </ul>
-        </Menu>
+        <ListPosts/>
 
-        <header className="App-header">
-          <img src={taco} className="App-logo" alt="logo" />
-          <h1 className="App-title">LordTaco</h1>
-
-        </header>
-
-        <Route exact path='/' render={() => (
-          <main>
-            <PostsView
-            />
-          </main>
-        )}/>
-
-        <Route exact path='/funny' render={() => (
-          <PostCategoryView
-          />
-        )}/>
-        <Route exact path='/technology' render={() => (
-          <PostCategoryView
-          />
-        )}/>
-        <Route exact path='/food' render={() => (
-          <PostCategoryView
-          />
-        )}/>
-        <Route exact path='/Awesome' render={() => (
-          <PostCategoryView
-          />
-        )}/>
-        <Route exact path='/:category/:postId' render={() => (
-          <PostDetailView
-          />
-        )}/>
-
-
+        <p className="App-intro">
+        </p>
         <Button className="open-search"  onClick={this.toggleModalForm}></Button>
         <Modal isOpen={this.state.modalForm} toggle={this.toggleModalForm} className={this.props.className}>
          <ModalHeader toggle={this.toggleModalForm}>Post something! :D</ModalHeader>
@@ -128,7 +86,6 @@ function mapStateToProps(state){
   return{
     categories: state.categories,
     posts: state.posts,
-    category: state.category
   }
 }
 
@@ -136,13 +93,14 @@ function mapDispatchToProps(dispatch){
   return{
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
+    getCategoryPosts: (categoryName)=> asyncGetCategoryPosts(dispatch)(categoryName),
     asyncSortPosts: (sortState)=>asyncSortPosts(dispatch)(sortState)
   }
 }
 
-const AppRouter = withRouter(connect(
+const PostViewRouter = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App));
+)(PostView));
 
-export default AppRouter
+export default PostViewRouter

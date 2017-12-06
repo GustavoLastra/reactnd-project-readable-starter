@@ -1,5 +1,6 @@
 /* Category action*/
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const STORE_CATEGORY = 'STORE_CATEGORY'
 /* Posts actions*/
 export const GET_POSTS = 'GET_POSTS';
 export const POST_VOTE = 'POST_VOTE';
