@@ -38,6 +38,14 @@ export const asyncPostVote = (dispatch) => (postId)=> () => {
     .then(posts => dispatch(postVote(posts))))
 };
 
+export const asyncPostVoteCategory = (dispatch) => (postId,category) => {
+  console.log("thorough asyncPostVoteCategory action (postId, category): " + postId + " " +category  );
+  api
+    .votePost(postId)
+    .then(() => api.getCategoryPosts(category)
+    .then(posts => dispatch(postVote(posts))))
+};
+
 export const downVotePost = (posts) => ({               /* downvote for a post action*/
   type: actionTypes.POST_DOWNVOTE_POSTS,
   //posts,
@@ -49,6 +57,14 @@ export const asyncPostDownVote = (dispatch) => (postId)=> () => {
   api
     .downVotePost(postId)
     .then(() => api.getPosts()
+    .then(posts => dispatch(downVotePost(posts))))
+};
+
+export const asyncPostDownVoteCategory = (dispatch) => (postId,category) => {
+  console.log("thorough asyncPostDownVote action (postId, option): " + postId + " " );
+  api
+    .downVotePost(postId)
+    .then(() => api.getCategoryPosts(category)
     .then(posts => dispatch(downVotePost(posts))))
 };
 

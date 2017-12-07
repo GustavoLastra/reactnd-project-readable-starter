@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import {asyncGetCategories, asyncGetPosts, asyncPostVote, asyncEditPost,asyncDeletePost} from '../actions'
-import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost,asyncPostDownVote} from '../actions/posts';
+import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncPostVoteCategory,asyncPostDownVoteCategory,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost,asyncPostDownVote} from '../actions/posts';
 import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
 import {asyncGetCategories} from '../actions/categories';
 import {connect} from 'react-redux';
@@ -31,6 +31,8 @@ class Post extends Component {
     this.toggleModalAddComment = this.toggleModalAddComment.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.onReady = this.onReady.bind(this);
+    this.voteUp = this.voteUp.bind(this);
+    this.voteDown = this.voteDown.bind(this);
 
   }
 
@@ -69,6 +71,33 @@ class Post extends Component {
     this.toggleModalAddComment();
   }
 
+  voteUp(){
+    console.log("vote UUUPPPP");
+    const {post, postVote,postVoteCategory} =  this.props;
+    const { match, location, history } = this.props;
+    var currentcategory = location.pathname.substr(1);
+    console.log("currentcategory + post.id :"+currentcategory+" post.id: "+post.id );
+    if(currentcategory){
+      console.log("trueeeeee1111");
+      postVoteCategory(post.id,currentcategory);
+    }else {
+      postVote()
+    }
+  }
+
+  voteDown(){
+    const {post, postDownVote,postDownVoteCategory} =  this.props;
+    const { match, location, history } = this.props;
+    var currentcategory = location.pathname.substr(1);
+    if(currentcategory){
+      postDownVoteCategory(post.id,currentcategory);
+    }else {
+      postDownVote()
+    }
+
+  }
+
+
   render() {
     const {post, postVote,postDownVote} =  this.props;
     let target  = post.author + "hola";
@@ -83,8 +112,8 @@ class Post extends Component {
           </p>
           -{post.author}
           <p className="buttonlist">
-            <Button color="success" onClick={postVote}>+</Button>
-            <Button color="danger" onClick={postDownVote}>-</Button>
+            <Button color="success" onClick={this.voteUp}>+</Button>
+            <Button color="danger" onClick={this.voteDown}>-</Button>
             <Button color="primary" onClick={this.toggleModalComments}>Comments<span className="comment">{post.commentCount}</span></Button>
             <Button color="info" onClick={this.goToDetails} >Details</Button>
             <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
@@ -170,6 +199,8 @@ function mapDispatchToProps(dispatch, OwnProps){
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
     postVote:asyncPostVote(dispatch)(post.id),
+    postVoteCategory: (postId,category) => asyncPostVoteCategory(dispatch)(postId,category),
+    postDownVoteCategory: (postId,category) => asyncPostDownVoteCategory(dispatch)(postId,category),
     postDownVote: asyncPostDownVote(dispatch)(post.id),
     deletePost:(postId)=>asyncDeletePost(dispatch)(postId)
   }
