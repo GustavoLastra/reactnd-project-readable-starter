@@ -26,11 +26,11 @@ class ListCategories extends Component {
   }
 
   selectCategory(categoryName) {
-    const { onCategorySelect,history } = this.props
+    const { onCategorySelect,history,getCategoryPosts,storeCategory } = this.props
     console.log("on ListCategory's selectCategory function");
-    const {storeCategory} = this.props;
     //getCategoryPosts(categoryName);
-    storeCategory(categoryName)
+    storeCategory(categoryName);
+    getCategoryPosts(categoryName);
     history.push('/' + categoryName);
 
   }
