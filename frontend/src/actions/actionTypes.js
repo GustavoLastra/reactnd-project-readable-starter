@@ -15,6 +15,8 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const COMMENT_VOTE = 'COMMENT_VOTE';
+export const COMMENT_DOWNVOTE = 'COMMENT_DOWNVOTE';
 /* */
 export const POST_VOTE = 'POST_VOTE';
 export const POST_DOWNVOTE = 'POST_DOWNVOTE'

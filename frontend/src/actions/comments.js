@@ -39,7 +39,7 @@ export const asyncEditComment = (dispatch) => (comment) => {
     .then(comments => dispatch(editComment(comments))))
 };
 
-export const deleteComment = (comments) => ({                       /* Delete comment action*/ 
+export const deleteComment = (comments) => ({                       /* Delete comment action*/
   type: actionTypes.DELETE_COMMENT,
   comments,
 });
@@ -50,4 +50,30 @@ export const asyncDeleteComment = (dispatch) => (comment) => {
     .deleteComment(comment.id)
     .then(() => api.getPostComments(comment.parentId)
     .then(comments => dispatch(deleteComment(comments))))
+};
+
+export const commentVote = (comments) => ({                         /* Edit comment action*/
+  type: actionTypes.COMMENT_VOTE,
+  comments,
+});
+
+export const asyncCommentVote = (dispatch) => (comment) => {
+  console.log("through action asynccCommentVote: "+ comment);
+    api
+    .voteComment(comment.id)
+    .then(() => api.getPostComments(comment.parentId)
+    .then(comments => dispatch(commentVote(comments))))
+};
+
+export const commentDownVote = (comments) => ({                         /* Edit comment action*/
+  type: actionTypes.COMMENT_DOWNVOTE,
+  comments,
+});
+
+export const asyncCommentDownVote = (dispatch) => (comment) => {
+  console.log("through action asynccCommentDownVote: "+ comment);
+    api
+    .downVoteComment(comment.id)
+    .then(() => api.getPostComments(comment.parentId)
+    .then(comments => dispatch(commentDownVote(comments))))
 };

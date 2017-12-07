@@ -12,6 +12,10 @@ export default function comments (state = [], action) {
       return action.comments
     case actionTypes.DELETE_COMMENT :
       return action.comments
+    case actionTypes.COMMENT_VOTE :
+      return action.comments
+    case actionTypes.COMMENT_DOWNVOTE :
+      return action.comments
     default:
       return state
   }
