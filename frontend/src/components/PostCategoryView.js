@@ -37,8 +37,7 @@ class PostCategoryView extends Component {
 
   render() {
     const { match, location, history } = this.props;
-    var currentLocation = this.props.match.params.category;//location.pathname.substr(1);
-    console.log("renderPostCateory category: "+category);
+    var currentLocation = match.params.category;//location.pathname.substr(1);
     console.log(" this.props.match.params.category111111111111111: "+ this.props.match.params.category)
     const {category} = this.props;
     return (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import FormSerialize from 'form-serialize';
-import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost} from '../actions/posts';
+import {asyncGetPosts,asyncGetCategoryPosts,asyncPostVote,asyncSortPosts,asyncAddPost,asyncEditPost,asyncDeletePost,asyncSortPostsCategory} from '../actions/posts';
 import {asyncGetComments,asyncAddComment,asyncDeleteComment,asyncEditComment} from '../actions/comments';
 import {asyncGetCategories} from '../actions/categories';
 import taco from '../Taco.png';
@@ -37,13 +37,28 @@ class App extends Component {
   }
 
   sortPostsHot() {
-    console.log("function sortPosts this.state.sortState:" +this.state.sortState);
-    this.props.asyncSortPosts("hot");
+    const { match, location, history } = this.props;
+    var currentcategory =  location.pathname.substr(1);//match.params.category;
+    console.log("function sortPostsHot currentcategory:" + currentcategory);
+    if(currentcategory ){
+      console.log("true !!!!!!!!!!!");
+      this.props.asyncSortPostsCategory("hot",currentcategory);
+    } else {
+      this.props.asyncSortPosts("hot");
+    }
+
   }
 
   sortPostsFresh() {
     console.log("function sortPosts this.state.sortState:" +this.state.sortState);
-    this.props.asyncSortPosts("fresh");
+    const { match, location, history } = this.props;
+    var currentcategory = location.pathname.substr(1);
+    if(currentcategory){
+      console.log("true !!!!!!!!!!!");
+      this.props.asyncSortPostsCategory("fresh",currentcategory);
+    } else {
+      this.props.asyncSortPosts("fresh");
+    }
   }
 
   toggleModalForm() {
@@ -138,7 +153,8 @@ function mapDispatchToProps(dispatch){
   return{
     getCategories: asyncGetCategories(dispatch),
     getPosts: asyncGetPosts(dispatch),
-    asyncSortPosts: (sortState)=>asyncSortPosts(dispatch)(sortState)
+    asyncSortPosts: (sortState)=>asyncSortPosts(dispatch)(sortState),
+    asyncSortPostsCategory: (sortState,category)=>asyncSortPostsCategory(dispatch)(sortState,category),
   }
 }
 

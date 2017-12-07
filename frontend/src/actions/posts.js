@@ -59,9 +59,16 @@ export const sortPosts = (posts,sortState) => ({    /* Sort posts action*/
 });
 
 export const asyncSortPosts = (dispatch) => (sortState) => {
-  console.log("through action asyncSortPosts sortState: " +  sortState );
+
     api
     .getPosts()
+    .then(posts => dispatch(sortPosts(posts,sortState)))
+};
+
+export const asyncSortPostsCategory = (dispatch) => (sortState,category) => {
+  console.log("through action asyncSortPostsCategory sortState and category: " +  sortState +" "+ category);
+    api
+    .getCategoryPosts(category)
     .then(posts => dispatch(sortPosts(posts,sortState)))
 };
 
