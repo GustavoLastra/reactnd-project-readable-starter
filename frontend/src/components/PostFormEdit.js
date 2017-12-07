@@ -37,9 +37,16 @@ class PostFormAdd extends Component {
     this.props.onReady();
   }
 
+  componentDidMount() {
+    const { post } = this.props
+      this.setState({title: post.title})
+      this.setState({body: post.body})
+  }
+
   handleInputChange(e) {
     this.setState({[e.target.name]: e.target.value})
   }
+
 
   render() {
     const {post} = this.props;

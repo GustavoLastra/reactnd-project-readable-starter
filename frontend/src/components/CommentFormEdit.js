@@ -38,6 +38,12 @@ class CommentFormEdit extends Component {
     this.props.editComment(comment);
     this.props.onReady();
   }
+
+  componentDidMount() {
+    const { comment } = this.props
+      this.setState({body: comment.body})
+  }
+
   handleInputChange(e) {
     this.setState({[e.target.name]: e.target.value})
   }
