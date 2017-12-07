@@ -92,73 +92,85 @@ class PostDetailView extends Component {
     const {post, postVote,postDownVote} =  this.props;
     return (
       <main className="container">
-
-      <h1>Post Details!</h1>
-      <Jumbotron >
-        <Container fluid>
-        <h1><div className="buttonlistright"><img src={taco} className="App-logodos" alt="logo" /><Badge   color="secondary">{post.voteScore}</Badge></div></h1>
-          <h2 className="display-5">"{post.title}"</h2>
-          <p className="lead">
-            {post.body}
-          </p>
-          <hr className="my-2" />
-          <p>Author: {post.author}</p>
-          <p>Date: {post.timestamp}</p>
-          <p>Category: {post.category}</p>
-          <p>ID: {post.id}</p>
-          <p className="buttonlist">
-          <Button color="success" onClick={this.upVote}>+</Button>
-          <Button color="danger" onClick={this.downVote}>-</Button>
-          <Button color="primary" onClick={this.toggleModalComments}>Comments<span className="comment">{post.commentCount}</span></Button>
-          <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
-          <Button color="danger" onClick={this.deletePost}>Delete</Button>
-          </p>
-          <Modal isOpen={this.state.modalComments} toggle={this.toggleModalComments} className={this.props.className}>
-            <ModalHeader toggle={this.toggleModalComments}>Comments</ModalHeader>
-            <ModalBody>
-              <h3>{post.title}</h3>
-              <p>{post.body}</p>
-              <hr className="my-2" />
-              <ListComments
-              post={post}
-              />
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={this.toggleModalAddComment}>Add comment</Button>
-              <Button color="secondary" onClick={this.toggleModalComments}>Cancel</Button>
-            </ModalFooter>
-          </Modal>
-
-          <Modal isOpen={this.state.modalAddComment} toggle={this.toggleModalAddComment} className={this.props.className}>
-            <ModalHeader toggle={this.toggleModalAddComment}>Add a Comment!</ModalHeader>
-            <ModalBody>
-
-              <CommentFormAdd
-              postId={post.id}
-              onReady={this.onReady}
-              />
-
-            </ModalBody>
-            <ModalFooter>
-              <Button color="secondary" onClick={this.toggleModalAddComment}>Cancel</Button>
-            </ModalFooter>
-          </Modal>
-          <Modal isOpen={this.state.modalEditPost} toggle={this.toggleModalEditPost} className={this.props.className}>
-            <ModalHeader toggle={this.toggleModalEditPost}>Edit the post!</ModalHeader>
-            <ModalBody>
-
-              <PostFormEdit
+      {post.id?(
+        <div>
+        <h1>Post Details!</h1>
+        <Jumbotron >
+          <Container fluid>
+          <h1><div className="buttonlistright"><img src={taco} className="App-logodos" alt="logo" /><Badge   color="secondary">{post.voteScore}</Badge></div></h1>
+            <h2 className="display-5">"{post.title}"</h2>
+            <p className="lead">
+              {post.body}
+            </p>
+            <hr className="my-2" />
+            <p>Author: {post.author}</p>
+            <p>Date: {post.timestamp}</p>
+            <p>Category: {post.category}</p>
+            <p>ID: {post.id}</p>
+            <p className="buttonlist">
+            <Button color="success" onClick={this.upVote}>+</Button>
+            <Button color="danger" onClick={this.downVote}>-</Button>
+            <Button color="primary" onClick={this.toggleModalComments}>Comments<span className="comment">{post.commentCount}</span></Button>
+            <Button color="warning" onClick={this.toggleModalEditPost}>Edit</Button>
+            <Button color="danger" onClick={this.deletePost}>Delete</Button>
+            </p>
+            <Modal isOpen={this.state.modalComments} toggle={this.toggleModalComments} className={this.props.className}>
+              <ModalHeader toggle={this.toggleModalComments}>Comments</ModalHeader>
+              <ModalBody>
+                <h3>{post.title}</h3>
+                <p>{post.body}</p>
+                <hr className="my-2" />
+                <ListComments
                 post={post}
-                onReady={this.toggleModalEditPost}
-              />
+                />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={this.toggleModalAddComment}>Add comment</Button>
+                <Button color="secondary" onClick={this.toggleModalComments}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
 
-            </ModalBody>
-            <ModalFooter>
-              <Button color="secondary" onClick={this.toggleModalEditPost}>Close</Button>
-            </ModalFooter>
-          </Modal>
-        </Container>
-      </Jumbotron>
+            <Modal isOpen={this.state.modalAddComment} toggle={this.toggleModalAddComment} className={this.props.className}>
+              <ModalHeader toggle={this.toggleModalAddComment}>Add a Comment!</ModalHeader>
+              <ModalBody>
+
+                <CommentFormAdd
+                postId={post.id}
+                onReady={this.onReady}
+                />
+
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={this.toggleModalAddComment}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
+            <Modal isOpen={this.state.modalEditPost} toggle={this.toggleModalEditPost} className={this.props.className}>
+              <ModalHeader toggle={this.toggleModalEditPost}>Edit the post!</ModalHeader>
+              <ModalBody>
+
+                <PostFormEdit
+                  post={post}
+                  onReady={this.toggleModalEditPost}
+                />
+
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={this.toggleModalEditPost}>Close</Button>
+              </ModalFooter>
+            </Modal>
+          </Container>
+        </Jumbotron>
+      </div>
+
+      ):(
+
+        <div>
+          <h3>404 page not found</h3>
+          <p>We are sorry but the page you are looking for does not exist.</p>
+        </div>
+      )}
+
+
       </main>
     );
   }
