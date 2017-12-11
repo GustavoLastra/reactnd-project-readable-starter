@@ -43,9 +43,9 @@ class PostCategoryView extends Component {
     return (
       <div>
 
-        <main className="App">
+        <div className=" App">
           <h2 className="">{currentLocation+"! "}</h2>
-        </main>
+        </div>
         <ListPosts/>
       </div>
     );

@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom'
 import ListComments from './ListComments';
 import CommentFormAdd from './CommentFormAdd';
 import PostFormEdit from './PostFormEdit';
+import FlatButton from 'material-ui/FlatButton';
 
 class PostDetailView extends Component {
   constructor (props) {
@@ -91,7 +92,7 @@ class PostDetailView extends Component {
     console.log("renderPostDetail");
     const {post, postVote,postDownVote} =  this.props;
     return (
-      <main className="container">
+      <div className="">
       {post.id?(
         <div>
         <h1>Post Details!</h1>
@@ -171,7 +172,7 @@ class PostDetailView extends Component {
       )}
 
 
-      </main>
+      </div>
     );
   }
 }

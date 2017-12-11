@@ -18,6 +18,7 @@ import ListCategories from './ListCategories';
 import PostsView from './PostsView'
 import PostDetailView from './PostDetailView'
 import {withRouter} from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 
 
@@ -108,20 +109,24 @@ class App extends Component {
         </header>
 
         <Route exact path='/' render={() => (
-          <main>
+          <main className="container">
             <PostsView
             />
           </main>
         )}/>
 
         <Route exact path='/:category' render={() => (
-          <PostCategoryView
-          />
+          <main className="container">
+            <PostCategoryView
+            />
+          </main>
         )}/>
 
         <Route exact path='/:category/:postId' render={() => (
+          <main className="container">
           <PostDetailView
           />
+          </main>
         )}/>
 
 
